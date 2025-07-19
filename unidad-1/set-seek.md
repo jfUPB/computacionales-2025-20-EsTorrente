@@ -56,7 +56,7 @@ ___
 
       
 5. 🌱¿Qué valor se almacena en la dirección de memoria 16? ¿Por qué crees que es ese valor?  
-   >- El número 3 (el que estaba asignado a D). Al decir que M=D, estamos indicando que en la memoria se debe guardar el valor específico de ese registro. Como fue explicado en clase, se toma la posición 16 de la memoria porque ese era el valor actual de A en el momento de la ejecución del código. La lógica de ese proceso es simplemente "porque sí"
+   >- El número 3 (el que estaba asignado a D). Al decir que M=D, estamos indicando que en la memoria se debe guardar el valor específico de ese registro. Como fue explicado en clase, se toma la posición 16 de la memoria porque ese era el valor actual de A en el momento de la ejecución del código. La lógica de por qué el programa usa el registro A es simplemente "porque sí"
 
 6. 🌿¿Qué instrucciones se ejecutan en cada ciclo Fetch-Decode-Execute?
    - PC 0:
@@ -88,18 +88,13 @@ ___
       >1. Fetch: Carga M=D desde la ROM
       >2. Decode: Reconoce que es una instrucción C
       >3. Execute: Toma la dirección almacenada en A, guarda el valor almacenado en D en la memoria RAM de posición del valor de A, y avanza a la siguiente instrucción.
-   
-   - PC 6:
-      >1. Fetch: Carga D=A desde la ROM
-      >2. Decode: Reconoce que es una instrucción C
-      >3. Execute: Copia el valor del registro A (1) al registro D y avanza a la siguiente instrucción.
          
-   - PC 7:
+   - PC 6:
       >1. Fetch: Carga @7 desde la ROM
       2. Decode: Reconoce que es una instrucción A
       3. Execute: Carga el valor 7 en el registro A (prepara para el jump) y avanza a la siguiente instrucción.
          
-   - PC 8:
+   - PC 7:
       1. Fetch: Carga 0;JMP desde la ROM
       2. Decode: Reconoce que es una instrucción C
       3. Execute: Hace un cálculo nulo y realiza un salto incondicional a la posición de la instrucción 7.  
