@@ -91,13 +91,13 @@ ___
          
    - PC 6:
       >1. Fetch: Carga @7 desde la ROM
-      2. Decode: Reconoce que es una instrucción A
-      3. Execute: Carga el valor 7 en el registro A (prepara para el jump) y avanza a la siguiente instrucción.
+      >2. Decode: Reconoce que es una instrucción A
+      >3. Execute: Carga el valor 7 en el registro A (prepara para el jump) y avanza a la siguiente instrucción.
          
    - PC 7:
-      1. Fetch: Carga 0;JMP desde la ROM
-      2. Decode: Reconoce que es una instrucción C
-      3. Execute: Hace un cálculo nulo y realiza un salto incondicional a la posición de la instrucción 7.  
+      >1. Fetch: Carga 0;JMP desde la ROM
+      >2. Decode: Reconoce que es una instrucción C
+      >3. Execute: Hace un cálculo nulo y realiza un salto incondicional a la posición de la instrucción 7.  
 
 8. 🌻¿Qué cambios observas en el contenido de la memoria y los registros?
    >- ⭐Registro A: cambia cada vez que se usa una instrucción de tipo @. Le asigna un valor nuevo. Al presionar el botón de reset, se borran sus datos.  
