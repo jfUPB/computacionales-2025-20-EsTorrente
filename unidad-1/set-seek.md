@@ -309,7 +309,7 @@ ___
 **OBSERVACIONES:** Los tags que se ven en el bloc de notas como (NOMBRE) y @NOMBRE, en el simulador se convierten en números. El simulador traduce automáticamente el nombre de las variables al espacio correspondiente en la RAM. Creo que los errores que tuve al asumir el funcionamiento del programa se debían principalmente a 2 factores:  
 > ⭐ Mi cerebro todavía no está totalmente familiarizado con la lógica del lenguaje. Me confundí algunas veces entre la M representando la posición indicada por A y el valor almacenado en esa posición.  
 
-> 🌟 Fatiga por la cantidad de datos con nombres abstractos. Como tengo déficit de atención, la programación se me facilita mucho más cuando las variables y funciones tienen nombres explícitos y colores que me permiten identificar rápidamente su tipo y función. Como los nombres aquí son tan genéricos, me da un poco más de dificultad :(  
+> 🌟 Fatiga por la cantidad de datos con nombres abstractos. Como tengo déficit de atención, la programación se me facilita mucho más cuando las variables y métodos tienen nombres explícitos y colores que me permiten identificar rápidamente su tipo y función. Como los nombres aquí son tan genéricos, me da un poco más de dificultad :(  
 
 ```︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶ ```
 ___
