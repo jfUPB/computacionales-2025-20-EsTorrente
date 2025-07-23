@@ -13,9 +13,7 @@ D=M
 @10
 D=D-A
 @MAYOR
-D;JGE
-@MENOR
-0;JMP
+D;JGT
 
 (MENOR)
 @1
@@ -35,9 +33,16 @@ M=D
 @FINAL
 0;JMP
 ```
+🌼**Lo que hace:** 
+1. Carga el valor que se encuentra en la memoria RAM[5] y lo almacena en D.
+2. Carga el número 10 en el registro A.
+3. En D, almacena el número que resulte de restarle A (10) a D (RAM[5])
+4. Si el resultado es mayor que 0, eso significa que es mayor... así que salta a (MAYOR). Si es menor, el programa se sigue ejecutando y pasa a la sección de (MENOR).
+5. En ambos casos, la sección (MAYOR) y (MENOR) cargan en el registro A el número asignado por el enunciado, lo almacenan en el registro D, luego cargan el valor de la memoria RAM[7] y le asignan en esa posición el valor de D. La diferencia es que, sin un salto al final de (MENOR), el programa ejecutaría de corrido (MAYOR). Por eso agregué un salto incondicional a una sección de (FINAL), donde no hay más operaciones y el PC se queda en un loop para evitar que siga ejecutando instrucciones que podrían dar problemas. (Leí que estaba recomendado hacer eso, no sé si sea verdad)
+
 ︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
 
-> **🌱Análisis:** en mi primera versión del programa, no agregué el loop de final. Cuando lo ejecuté, caí en cuenta de que (obviamente) estaba ejecutando el bloque (MAYOR) inmediatamente después de terminar (MENOR). También aprendí en este ejercicio que no tenía que introducir el valor que iba a estar en la memoria RAM[5] desde la memoria ROM, sino que podía modificarlo directamente en la consolita del simulador.
+> **🌱Análisis:** en mi primera versión del programa, no agregué el loop de final. Cuando lo ejecuté, caí en cuenta de que (obviamente) estaba ejecutando el bloque (MAYOR) inmediatamente después de terminar (MENOR). También aprendí en este ejercicio que no tenía que introducir el valor que iba a estar en la memoria RAM[5] desde la memoria ROM, sino que podía modificarlo directamente en la consolita del simulador. Además, no había ninguna indicación sobre qué hacer si el valor es IGUAL a 10, por lo que simplemente sigue corriendo el programa como si fuera un número menor.
 
 ︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
 ___
@@ -75,6 +80,17 @@ M=M+1
 @FINAL
 0;JMP
 ```
+🌻**Lo que hace:** 
+1. En la sección de (INICIO) cargo la posición 12 (donde se almacena la suma) y la borro con M=0 para reiniciarlo (por si lo ejecuté antes)
+2. Luego, como mostraba la documentación que se creaba un loop, creo una variable @i (que se asigna en RAM[16], según nos contaste) y le doy el valor de 1.
+3. En la sección del ciclo, lo primero que hago es llamar la ubicación de i, que me dice en qué iteración vamos. Le asigno el valor que está en RAM[16] a D.
+4. Cargo el número 5 en el registro A para utilizarlo en la siguiente operación.
+5. En D almaceno D (el número de iteración actual) - A (5). Si el número es mayor que 0, es porque la i ya alcanzó un valor de 6 y el programa no debe continuar. Hace un salto incondicional a (FINAL). Si es igual o menor que 0, entonces i=5 o i<5, y el programa sigue a la sección de (SUMA).
+6. En suma, vuelve a cargar el valor que hay almacenado en @i (RAM[16], el número actual de iteraciones) y se lo asigna a D.
+7. Luego carla la posición de memoria 12, y en ella suma el valor de D (el número de iteraciones) + lo que ya se ha sumado y almacenado en RAM[12].
+8. Vuelve a cargar la posición de i, y en la memoria (RAM[16]) toma el valor actual de iteración y le suma 1.
+9. Salto incondicional a (CICLO) donde vuelve a revisar si ya llegó hasta i=6.
+10. Se sigue repitiendo hasta saltar a (FINAL)
 
 ︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
 
