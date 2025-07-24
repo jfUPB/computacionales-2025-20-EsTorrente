@@ -19,7 +19,7 @@
 >
 >🍂REGISTRO D: funciona principalmente para realizar operaciones y almacenar valores numéricos (como los resultados de esas operaciones), y luego asignar esos datos a una parte de la memoria si se desea. También se utiliza para realizar saltos, checkeando la condición del valor almacenado. 
 >
->🍁LA ALU: (de esta no estoy segura). Es la parte del computador que se encarga de interpretar las operaciones, asignar los recursos necesarios y ejecutarlos. 
+>🍁LA ALU: Es la parte del computador que se encarga de interpretar las operaciones matemáticas, asignar los recursos necesarios y ejecutarlos. 
 
 **¿Cómo se implementa un salto condicional en Hack? Describe un ejemplo (p. ej., saltar si el valor de D es mayor que cero).**
 > Lo primero es usar una instrucción tipo A para indicar la ubicación a la que vamos a saltar en la memoria ROM si la condición se cumple. Después, usando la estructura que mencioné para las instrucciones tipo C, podemos eliminar la segunda parte (solamente necesitamos el registro que vamos a checkear y la acción a realizar). Nos quedaría solamente `almacenamiento; acción`. La acción que queremos realizar es un salto que revise la condición que necesitamos, por lo que usamos: "JGT" `(Jump -> greater than)`, "JLE" `(Jump -> lower equal), "JGE" (Jump -> greater equal), etc. Por último, simplemente reemplazamos "almacenamiento" con el registro que tiene el valor que revisamos (usualmente D).
