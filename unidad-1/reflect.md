@@ -60,9 +60,19 @@ ___
 > En ese mismo ejercicio de la pantalla. Me pareció bueno predecir el funcionamiento antes de leer la documentación y después de leerla, porque me permitió comprobar que sí había comprendido mucho de lo que leí. También fue muy útil sentarme a analizar los errores en el código y buscar el motivo por el cuál me estaba equivocando, más allá de simplemente decir que algo falló.
 
 🌼**Describe un momento “¡Aha!” que hayas tenido durante estas dos semanas. ¿Qué estabas haciendo cuando ocurrió?**
-> Durante el último ejercicio de la fase apply (sumar los números del 1 al 5), había escrito "D=M+D" o algo así. Cuando fui a cargar el programa, todo salía vacío en la memoria ROM. Tuve que borrar línea por línea y volverlo a cargar para identificar lo que estaba provocando el conflicto. Como 5 minutos después fue que descubrí (a las malas) que la D debe ir primero en las operaciones. Después de corregirlo a "D=D+M", todo funcionó.
+> Durante el último ejercicio de la fase apply (sumar los números del 1 al 5), había escrito "D=M+D" o algo así. Cuando fui a cargar el programa, todo salía vacío en la memoria ROM. Tuve que borrar línea por línea y volverlo a cargar para identificar lo que estaba provocando el conflicto. Como 5 minutos después fue que descubrí (a las malas) que la D debe ir primero en las operaciones. Después de corregirlo a "D=D+M", todo funcionó.  
 
-🌻**Pensando en la próxima unidad, ¿Qué harás diferente en tu proceso de estudio para aprender de manera más efectiva?**  
-> Quizás responder las preguntas de teoría a medida que se explican en la clase. Considero que todo lo demás en mi método fue bastante efectivo.  
-︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
 ___
+︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
+### 📝**Actividad 07**
+🌱**Continuar: ¿Qué aspecto de las actividades, las explicaciones o la dinámica de la clase te ha resultado más útil o te ha gustado más y debería seguir haciendo?**  
+> La dinámica de intentar predecir el funcionamiento del programa antes de ejecutarlo y luego analizar de dónde vinieron las confusiones. Siento que es una manera demasiado eficaz de identificar las fortalezas y debilidades en la comprensión del tema. También, en algunos casos, tener la oportunidad de investigar desde la documentación.
+🌿**Dejar de hacer: ¿Qué aspecto de la unidad te ha resultado confuso, poco útil o frustrante? ¿Hay algo que crees que debería eliminar o cambiar drásticamente?**  
+> Nada, todo me resulto bastante sencillo. El ritmo de aprendizaje es perfecto.
+🌼**Empezar a hacer: ¿Qué te habría gustado que hiciéramos que no hicimos? ¿Tienes alguna idea para una actividad o un recurso que podría mejorar el aprendizaje en la próxima unidad?**
+> Nada. Como instroducción a la unidad, me pareció totalmente apropiado y satisfactorio.
+🌻**Ritmo y Dificultad: en una escala del 1 (muy fácil/lento) al 5 (muy difícil/rápido), ¿Cómo calificarías el ritmo y la dificultad general de esta unidad? ¿Por qué?**  
+> 4/5.
+> A mí personalmente me pareció perfecto el ritmo de trabajo, pero comprendo que para algunas personas que no tienen mucha afinidad por la programación podría resultar un poco amenazante el ser lanzados a un programa de apariencia intimidante como el de pintar la pantalla. Me agrada demasiado que las actividades programadas en la bitácora se sienten correctamente diseñadas para no ser abrumadoras, incluso a pesar de la frecuencia con la que se presentan.
+🌱**Comentario Adicional: ¿Hay algo más que te gustaría compartir sobre tu experiencia de aprendizaje en esta unidad?**  
+> Al inicio me dió un poco de dificultad el acostumbrarme a los nombres ambiguos de las variables, pero en las últimas actividades realizadas se sintió bastante natural. Fue muy satisfactorio poder leer mi progreso desde el análisis en la bitácora. También me agrada la dinámica de dejar comentarios y sugerencias para otro compañero.
