@@ -1,3 +1,106 @@
 # Unidad 1
 
 ## 🤔 Fase: Reflect
+### 📝**Actividad 05**
+🌱Parte 1: recuperación de conocimiento (retrieval practice)
+
+**Describe con tus palabras las tres fases del ciclo Fetch-Decode-Execute. ¿Qué rol juega el Program Counter (PC) en este ciclo?**  
+>🍃FETCH: el computador busca la operación que corresponde a esa etapa del ciclo dentro de la memoria ROM.  
+>🍂DECODE: el computador interpreta la operación a realizar y asigna los recursos necesarios para llevarla a cabo.  
+>🍁EXECUTE: el computador ejecuta la operación (sumas, almacenar datos en memoria o registros...)  
+  
+**¿Cuál es la diferencia fundamental entre una instrucción-A (que empieza con @) y una instrucción-C (que involucra D, M, A, etc.) en el lenguaje ensamblador de Hack? Da un ejemplo de cada una.**
+>🍃INSTRUCCIONES A: asignan un valor al registro A. Permiten preparar saltos de posición para recuperar el dato almacenado en la memoria RAM[A], o simplemente indicar la posición de memoria ROM[A] a la que se quiere regresar (incluyendo tags). Con ella se pueden asignar secciones de memoria a una variable. Sólo tienen ese argumento de @valor.
+>
+>🍂INSTRUCCIONES B: Su estructura está compuesta por 3 partes: `almacenamiento = operación; acción`. De esas 3 partes, la primera o la tercera pueden ser obviadas, pero siempre debe permanecer 2/3 completa. Sirve para realizar checks lógicos, saltos, reescribir el registro D o modificar un valor en la memoria RAM indicada.  
+  
+**Explica la función de los siguientes componentes del computador Hack: el registro D, el registro A y la ALU.**  
+>🍃REGISTRO A: sirve para cambiar directamente el valor del registro D, intercambiándolo por el dato almacenado. Además, es el que indica la posición a la cuál se realizan los saltos y la posición de la memoria RAM que está siendo manipulada.
+>
+>🍂REGISTRO D: funciona principalmente para realizar operaciones y almacenar valores numéricos (como los resultados de esas operaciones), y luego asignar esos datos a una parte de la memoria si se desea. También se utiliza para realizar saltos, checkeando la condición del valor almacenado. 
+>
+>🍁LA ALU: Es la parte del computador que se encarga de interpretar las operaciones matemáticas, asignar los recursos necesarios y ejecutarlos. 
+
+**¿Cómo se implementa un salto condicional en Hack? Describe un ejemplo (p. ej., saltar si el valor de D es mayor que cero).**
+> Lo primero es usar una instrucción tipo A para indicar la ubicación a la que vamos a saltar en la memoria ROM si la condición se cumple. Después, usando la estructura que mencioné para las instrucciones tipo C, podemos eliminar la segunda parte (solamente necesitamos el registro que vamos a checkear y la acción a realizar). Nos quedaría solamente `almacenamiento; acción`. La acción que queremos realizar es un salto que revise la condición que necesitamos, por lo que usamos: "JGT" `(Jump -> greater than)`, "JLE" `(Jump -> lower equal), "JGE" (Jump -> greater equal), etc. Por último, simplemente reemplazamos "almacenamiento" con el registro que tiene el valor que revisamos (usualmente D).
+>
+> Un ejemplo para realizar un salto a la posición 16 de la memoria ROM si el valor de D es mayor que 0:  
+> `@16`  
+> `D;JGT`    
+
+**¿Cómo se implementa un loop en el computador Hack? Describe un ejemplo (p. ej., un loop que decremente un valor hasta que llegue a cero).**
+> Por medio de una variable, un tag y un salto condicional. Primero, creamos la variable que va a corresponder a i (el número actual de iteraciones) para que se le asigne una posición en la memoria RAM. Cada vez que el loop termine las operaciones que le asignamos, tendremos que hacer lo siguiente:
+> 1. utilizar una operación tipo A para llamar la posición de la memoria RAM de la variable i.
+> 2. asignar el valor almacenado en ese espacio al registro D.
+> 3. utilizar otra operación tipo A para asignarle al registro A el número total de iteraciones que queremos que se ejecuten.
+> 4. realizar el cálculo D=D-A
+> 5. Realizar un check que revise si el valor de D es mayor que 0. Si lo es, ya se completaron las iteraciones deseadas, y el programa puede salir del loop. Esto se hace con una operación tipo A hacia un tag / posición distinto, y "D;JGT". Si aún no se cumple, el programa se sigue ejecutando para incrementar el valor de i así:
+> 6. volver a cargar a posición de memoria RAM[i]
+> 7. Sumarle 1 al valor almacenado en esa memoria.
+>
+> Los pasos 3 y 4 son opcionales si no queremos un número específico de iteraciones. Podemos simplemente checkear si después del código dentro el loop, se cumplió que `D;JE`
+
+**¿Cuál es la diferencia entre la instrucción D=M y la instrucción M=D?**
+> 🍃D=M: está almacenando en el registro D el valor que está en la memoria RAM[A]  
+> 🍂M=D: almacena en la memoria RAM[A] el valor almacenado en el registro D.  
+
+**Describe brevemente qué se necesita para leer un valor del teclado (KBD) y para “pintar” un pixel en la pantalla (SCREEN).**  
+> Lo primero es activar el uso del teclado en el simulador. Luego se utilizan los tags @KBD y @SCREEN dentro de las instrucciones para reescribir la parte de la memoria RAM asignada al teclado y la pantalla.
+>    
+> 🍃Si el valor almacenado en RAM[KBD] es distinto a 0, entonces hay una tecla siendo presionada.  
+> 🍂En la memoria RAM[SCREEN], cada una de las 16 posiciones representa un conjunto de pixeles. Si mal no recuerdo, 0 significa que el pixel está en blanco y 1 representa que el pixel está en negro.
+>   
+> Usando esas indicaciones, podemos crear un salto condicional que checkee el valor en RAM[KBD], y si el valor es mayor que 0, salte a la sección que aumenta el valor en RAM[SCREEN] hasta pintar toda la pantalla.  
+___
+︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
+🌱REFLEXIÓN: **¿Cuál fue el concepto o actividad más desafiante de esta unidad para ti y por qué?**
+> La de analizar el código que pintaba y despintaba la pantalla. Como mencioné en la bitácora, como los nombres de las variables son muy abstractas y tienen tantos roles distintos que pueden jugar, se me dificulta un poco identificar cuál es el papel de cada uno en cada línea de código específica... aunque siento que ya le he cogido el tiro a identificarlo.   
+
+🌿**La metodología de “predecir, ejecutar, observar y reflexionar” fue central en nuestras actividades. ¿En qué momento esta metodología te resultó más útil para entender algo que no tenías claro?**
+> En ese mismo ejercicio de la pantalla. Me pareció bueno predecir el funcionamiento antes de leer la documentación y después de leerla, porque me permitió comprobar que sí había comprendido mucho de lo que leí. También fue muy útil sentarme a analizar los errores en el código y buscar el motivo por el cuál me estaba equivocando, más allá de simplemente decir que algo falló.
+
+🌼**Describe un momento “¡Aha!” que hayas tenido durante estas dos semanas. ¿Qué estabas haciendo cuando ocurrió?**
+> Durante el último ejercicio de la fase apply (sumar los números del 1 al 5), había escrito "D=M+D" o algo así. Cuando fui a cargar el programa, todo salía vacío en la memoria ROM. Tuve que borrar línea por línea y volverlo a cargar para identificar lo que estaba provocando el conflicto. Como 5 minutos después fue que descubrí (a las malas) que la D debe ir primero en las operaciones. Después de corregirlo a "D=D+M", todo funcionó.
+  
+___
+︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
+### 📝**Actividad 06**
+  
+🌱 *ACTIVIDAD 1: [5]/5*
+Comentarios:
+> 🐟 Hay un error pequeño en la explicación de la función de fetch donde se menciona que "es la forma del computador de entender las instrucciones que recibe." 
+> Esto es incorrecto, es parte de la descripción del ciclo decode. Sin embargo, el ejercicio no está contando en la rúbrica.
+> 🐠 El análisis del primer programa es completo, correcto y específico. El programa del experimento 2 funciona correctamente, y la explicación de diferencia entre memoria RAM y ROM es clara y precisa.
+
+🌿 *ACTIVIDAD 2: [5]/5*
+Comentarios:
+> 🐟 El análisis del programa es detallado y demuestra un proceso consciente de interpretación. Se relacionan correctamente los conceptos explicados en la documentación con la práctica. Las respuestas a las preguntas son claras, específicas y bien ejemplificadas.
+
+=======================
+
+🌱 *ACTIVIDAD 3: [5]/5*
+Comentarios:
+> 🐟 El programa es completo y preciso. Explica de manera simple el funcionamiento, analiza las dificultades que se presentaron en el desarrollo y va un paso más allá creando un programa adicional con mayor nivel de interacción.
+
+🌿 *ACTIVIDAD 4: [5]/5*
+Comentarios:
+> 🐟 A pesar de no seguir explícitamente la guía de la documentación, el programa es totalmente funcional y la explicación es clara. Analiza las dificultades que se presentaron en el proceso y reconoce los avances en su comprensión de la lógica.
+
+___
+︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶
+### 📝**Actividad 07**  
+🌱**Continuar: ¿Qué aspecto de las actividades, las explicaciones o la dinámica de la clase te ha resultado más útil o te ha gustado más y debería seguir haciendo?**  
+> La dinámica de intentar predecir el funcionamiento del programa antes de ejecutarlo y luego analizar de dónde vinieron las confusiones. Siento que es una manera demasiado eficaz de identificar las fortalezas y debilidades en la comprensión del tema. También, en algunos casos, tener la oportunidad de investigar desde la documentación.
+
+🌿**Dejar de hacer: ¿Qué aspecto de la unidad te ha resultado confuso, poco útil o frustrante? ¿Hay algo que crees que debería eliminar o cambiar drásticamente?**  
+> Nada, todo me resulto bastante sencillo. El ritmo de aprendizaje es perfecto.
+
+🌼**Empezar a hacer: ¿Qué te habría gustado que hiciéramos que no hicimos? ¿Tienes alguna idea para una actividad o un recurso que podría mejorar el aprendizaje en la próxima unidad?**
+> Nada. Como instroducción a la unidad, me pareció totalmente apropiado y satisfactorio.
+
+🌻**Ritmo y Dificultad: en una escala del 1 (muy fácil/lento) al 5 (muy difícil/rápido), ¿Cómo calificarías el ritmo y la dificultad general de esta unidad? ¿Por qué?**  
+> 4/5.  
+> A mí personalmente me pareció perfecto el ritmo de trabajo, pero comprendo que para algunas personas que no tienen mucha afinidad por la programación podría resultar un poco amenazante el ser lanzados a un programa de apariencia intimidante como el de pintar la pantalla. Me agrada demasiado que las actividades programadas en la bitácora se sienten correctamente diseñadas para no ser abrumadoras, incluso a pesar de la frecuencia con la que se presentan.
+
+🌱**Comentario Adicional: ¿Hay algo más que te gustaría compartir sobre tu experiencia de aprendizaje en esta unidad?**  
+> Al inicio me dió un poco de dificultad el acostumbrarme a los nombres ambiguos de las variables, pero en las últimas actividades realizadas se sintió bastante natural. Fue muy satisfactorio poder leer mi progreso desde el análisis en la bitácora. También me agrada la dinámica de dejar comentarios y sugerencias para otro compañero.  
