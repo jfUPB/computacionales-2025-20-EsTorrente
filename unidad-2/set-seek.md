@@ -141,5 +141,97 @@ while(true) {
 ```
 > En C# conozco Console.ReadLine(), pero no sé realmente cómo leer el teclado en C++...  
 > Por eso sólo dejaré implícito que se está leyendo el teclado de alguna manera.
+  
+**🌱Como realmente se vería:.**  
+```program.cpp
 
+```
+___ 
 
+### 📝Actividad 05  
+Convierte estos programas a ensamblador y realiza la simulación paso a paso. Recuerda la metodología: predice, ejecuta, observa y reflexiona.  
+```program.cpp
+int a = 10;
+int* p;
+p = &a;
+*p = 20;
+```
+En ensamblador:
+```program.asm
+@10 //carga el 10
+D=A //le asigna 10 a D
+
+@a //crea variable a
+M=D // a=10
+
+@a //llama la posición de a
+D=A //guarda la posición de la variable a en D
+@p //crea variable p
+M=D //p= la posición de a
+
+@20 //carga número 20
+D=A //lo asigna a D
+@p //llama la posición de variable p
+A=M //guarda en el registro a lo que estaba almacenado en p (que era la posición de memoria de la variable a)
+M=D //reecribe en la memoria de a el valor 20
+```
+Segundo programa:
+```program.cpp
+int a = 10;
+int b = 5;
+int *p;
+p = &a;
+b = *p;
+```
+En ensamblador:
+```program.asm
+@10
+D=A
+
+@a
+M=D
+
+@5
+D=A
+
+@b
+M=D
+
+@a
+D=A
+@p
+M=D
+
+//no he terminado esta parte final
+@p
+A=M
+@b
+M=D
+
+```
+___
+### 🐟 NOTAS PARA MIGUEL VALENCIA QUE ESTABA SIENDO MUY JUICIOSO Y PRESENTANDO UNA PRUEBA: 🐟  
+`C++:`  
+PUNTERO: es una variable que guarda direcciones.  
+`int i;` -> i es una variable donde se guarda un valor (un entero)  
+  
+> `int* ptr;` -> declara un puntero usando *  
+> `ptr = nombre de la variable`  
+> `* = guarda una dirección`  
+> `int = el tipo de objetos de los que guarda la dirección.`  
+  
+> `int i = 5;`  
+> `int* ptr = i;` -> NO FUNCIONA!!! no puedes guardar el valor de i en ptr, sólo la posición. Eso es lo que estarías haciendo ahí.
+
+Lo que haría el puntero es APUNTAR al contenido de la variable en la memoria. Para esto se agrega:
+> `int* ptr = &i;`, donde & es la definición de la variable. El & lo usamos para llamar la dirección de la variable. Ahí sí estarías guardando su posición.
+  
+Pero para guardar en una variable el valor de la variable a la que estás apuntando en ese momento en otra variable:  
+> `int j = *ptr;`
+
+Y para reescribir la variable a la que estás aputando:
+> `*ptr = 25;`
+
+🐡 En otras palabras:
+> `&i` = para apuntar a la posición de una variable (apuntarle).  
+> `*ptr` = para guardar o reescribir el valor que está almacenada en la variable a la que apuntas.
