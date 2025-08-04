@@ -106,17 +106,18 @@ M=-1
 @LEER
 0;JMP
 ```
-1. Crea la línea negra asignando el valor de -1 a RAM[SCREEN].
-2. Crea una variable con nombre CONTADOR y le asigna un valor inicial de 0
-3. Lee el input del teclado, almacena ese valor en D. Le asigna a A el valor de 100 (el valor correspondiente a la tecla D) y lo resta al valor asignado en el registro D (la tecla que estaba presionada)
-4. Si la resta = 0, eso significa que la tecla presionada corresponde a D, y hace un salto a (DERECHA). Si no, el programa se sigue ejecutando.
-5. Vuelve a leer KBD, a guardar el valor de la tecla presionada, a restarle 105 (el valor correspondiente a la tecla i), y si = 0, salta a (IZQUIERDA). De lo contrario, el programa se sigue ejecutando y hace un salto incondicional a (JUMP)
-6. En tanto (DERECHA) como (IZQUIERDA), lo primero que hace es borrar la línea de la dirección actual. Para esto, carga en A el valor actual del contador (a cuántos espacios de memoria más adelante del valor de @SCREEN se encuentra), asigan en D el valor del contador, carga el valor de SCREEN en A, y almacena en A el resultado de D+A (la posición actual de la línea).
-7. Pone el valor de la memoria correspondiente en 0 para borrar la línea.
-8. Vuelve a llamar al contador y le suma o le resta 1 (dependiendo de si quiere ir a la posición a la derecha o a la izquierda respectivamente).
-9. Asigna a D el valor del contador
-10. Vuelve a cargar screen, y suma el valor del contador para saber en cuál dirección de memoria dibujar la nueva raya. En esa posición asigna el valor de M=-1 para pintar el pixel de negro.
-11. Al finalizar el movimiento, realiza un salto incondicional a (LEER) para volver a analizar el input del teclado. 
+**🌱Predecir:** 
+> 1. Crea la línea negra asignando el valor de -1 a RAM[SCREEN].
+> 2. Crea una variable con nombre CONTADOR y le asigna un valor inicial de 0
+> 3. Lee el input del teclado, almacena ese valor en D. Le asigna a A el valor de 100 (el valor correspondiente a la tecla D) y lo resta al valor asignado en el registro D (la tecla que estaba presionada)
+> 4. Si la resta = 0, eso significa que la tecla presionada corresponde a D, y hace un salto a (DERECHA). Si no, el programa se sigue ejecutando.
+> 5. Vuelve a leer KBD, a guardar el valor de la tecla presionada, a restarle 105 (el valor correspondiente a la tecla i), y si = 0, salta a (IZQUIERDA). De lo contrario, el programa se sigue ejecutando y hace un salto incondicional a (JUMP)
+> 6. En tanto (DERECHA) como (IZQUIERDA), lo primero que hace es borrar la línea de la dirección actual. Para esto, carga en A el valor actual del contador (a cuántos espacios de memoria más adelante del valor de @SCREEN se encuentra), asigan en D el valor del contador, carga el valor de SCREEN en A, y almacena en A el resultado de D+A (la posición actual de la línea).
+> 7. Pone el valor de la memoria correspondiente en 0 para borrar la línea.
+> 8. Vuelve a llamar al contador y le suma o le resta 1 (dependiendo de si quiere ir a la posición a la derecha o a la izquierda respectivamente).
+> 9. Asigna a D el valor del contador
+> 10. Vuelve a cargar screen, y suma el valor del contador para saber en cuál dirección de memoria dibujar la nueva raya. En esa posición asigna el valor de M=-1 para pintar el pixel de negro.
+> 11. Al finalizar el movimiento, realiza un salto incondicional a (LEER) para volver a analizar el input del teclado. 
   
 **🌱Traduce este programa a lenguaje C++ para que relaciones cómo los conceptos de alto nivel se traducen a bajo nivel.**  
 Creo que se vería (sin asignar tipo de variables ni nada) algo así:
@@ -141,13 +142,43 @@ while(true) {
 ```
 > En C# conozco Console.ReadLine(), pero no sé realmente cómo leer el teclado en C++...  
 > Por eso sólo dejaré implícito que se está leyendo el teclado de alguna manera.
-  
-**🌱Como realmente se vería:.**  
-```program.cpp
-
-```
 ___ 
+︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶  
+### 📝Actividad 04 
+🌱 **Escribe en tu bitácora el programa en ensamblador y las conclusiones que has sacado de la comparación entre los dos programas.** 
+```program.asm
+// Adds1+...+100.
+ @i // i refers to some memory location.
+ M=1 // i=1
+ @sum // sum refers to some memory location.
+ M=0 // sum=0
+ (LOOP)
+ @i
+ D=M // D=i
+ @100
+ D=D-A // D=i-100
+ @END
+ D;JGT // If(i-100)>0 gotoEND
+ @i
+ D=M // D=i
+ @sum
+ M=D+M // sum=sum+i
+ @i
+ M=M+1 // i=i+1
+ @LOOP
+ 0;JMP // GotoLOOP
+ (END)
+ @END
+ 0;JMP // Infinite loop
+```
+🌿 **COMPARACIÓN:**
+> 1. En ensamblador, tanto los ciclos while como for hacen uso de la comparación del valor de una variable i. En los dos casos, el ciclo termina cuando i <= 100 y tiene una etiqueta de loop y end.
+> 2. En el while se está inicializando la variable por fuera, mientras que en for se inicializa y se indica el aumento del valor de i dentro de los parámetros del loop.
+> 3. En ensamblador no hay diferencia alguna entre los dos, pero en C++ sí.
+  
+🌼 **FOR EN ESAMBLADOR:** es literalmente idéntico al código ya escrito arriba.
 
+___
 ### 📝Actividad 05  
 Convierte estos programas a ensamblador y realiza la simulación paso a paso. Recuerda la metodología: predice, ejecuta, observa y reflexiona.  
 ```program.cpp
@@ -202,9 +233,9 @@ D=A
 @p
 M=D
 
-//no he terminado esta parte final
 @p
 A=M
+D=M
 @b
 M=D
 
@@ -235,3 +266,4 @@ Y para reescribir la variable a la que estás aputando:
 🐡 En otras palabras:
 > `&i` = para apuntar a la posición de una variable (apuntarle).  
 > `*ptr` = para guardar o reescribir el valor que está almacenada en la variable a la que apuntas.
+
