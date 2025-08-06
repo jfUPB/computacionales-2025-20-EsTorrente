@@ -81,13 +81,13 @@ M=0
 M=0
 
 
-(LLENAR)
+(ARREGLO)
 //check para ver si sigue en el loop
 @0
 D=M
 @10
 D=D-A
-@FIN_LLENAR
+@FIN_ARREGLO
 D;JEQ //pq como empieza en 0, cuando llega a i = 10 ya es la onceava iteración
 
 
@@ -105,10 +105,10 @@ M=D // guarda ahí el numerito correspondiente a la iteración del ciclo (1 en e
 M=M+1
 @0
 M=M+1 //i++
-@LLENAR
+@ARREGLO
 0;JMP //salto incondicional a volver a empezar, pq ya había checkeado antes si salía o no del loop.
 
-(FIN_LLENAR)
+(FIN_ARREGLO)
 @16
 D=A
 @2 //carga el puntero
@@ -117,7 +117,7 @@ M=D //le asigna al puntero la posición donde inicia el array
 @0
 M=0 //reinicia el valor de i
 
-(SUMAR)
+(SUMA)
 //check
 @0
 D=M
@@ -140,7 +140,7 @@ M=M+1
 //i++
 @0
 M=M+1
-@SUMAR
+@SUMA
 0;JMP
 
 (FIN)
@@ -156,4 +156,5 @@ M=M+1
 <img width="1258" height="892" alt="image" src="https://github.com/user-attachments/assets/59552852-8499-4023-8a3d-e6b7fa884095" />
 
   
+
 
