@@ -113,4 +113,24 @@ ___
 |--------------------|--------------------------------|------|-------|
 | Instrucciones dentro de funcionConStatic(), crearArrayHeap(), suma() y main() | global_inicializada, global_no_inicializada, mensaje_ro, var_estatica | dirección de la memoria donde se almacena el array | int tam, int a, int b, int c, int tamArray, return arr, return c, return 0 |
 
+___
+### 📝 Actividad 04
+🌱 **Experimento 1:**
+> Se está itentando modificar la dirección de memoria del main. Lanza error porque se encuentra en el segmento de código, y ese es sólo de lectura. El programa se interrumpe en la línea 18.   
+    
+🌿 **Experimento 2:**
+> Como el mensaje es sólo de lectura, al intentar reescribirlo saldrá un error. Las constantes en general no deberían cambiar durante la ejecución del programa.  
+    
+🌼 **Experimento 3:**
+> Las variables globales sí se pueden modificar. La que fue inicializada comienza en el valor asignado y cambia a 69 luego de ser modificada,  mientras que la no inicializada es utomáticamente asignada el valor inicial de 0. Ese valor es modificado más tarde por 666. 
+  
+🌻 **Experimento 4:**
+> Sale un mensaje de error diciendo que `var_estatica` no está definida, y el programa no se ejecuta. Es porque la variable estática solamente podrá ser utilizada dentro de la función donde se inicializó. Cuando una variable no es estática, se borran y crean cada que la función se ejecuta y finaliza. Cuando sí es estática, permanece almacenada en la memoria durante toda la ejecución del programa y se comparte entre todas las instancias de esa misma clase.  
+  
+🌱 **Experimento 5:**
+> Ambas variables están siendo inicializadas dentro de la función, pero esa línea sólo está asignando el valor en la variable no estática. Como la variable estática sólo se crea e inicializa una vez en la primera ejecución del programa, toma el valor inicial de 100 e incrementa por 1 cada vez que esta se ejecuta. Por otro lado, la función no estática es creada, toma el valor de 100, suma +1 y luego es destruida en cada una de las iteraciones.  
 
+🌿 **Experimento 6:**
+> El programa lanza un error cuando se intenta escribir el valor en el ArrayHeap[0] porque esa parte de la memoria ya ha sido borrada. La línea que debe comentarse es `//delete[] arrayHeap;`, lo cuál permite que se ejecute correctamente y escriba el valor "10" al final. La memoria en el stack se borra automáticamente al salir de las funciones, mientras que en el stack toca hacer la asignación y eliminación manualmente. Si no se libera, puede llegar a ocupar cantidades grandes de la memoria y provocar que todo el sistema corra más lento.  
+___
+### 📝 Actividad 05
