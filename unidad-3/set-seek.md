@@ -133,4 +133,63 @@ ___
 🌿 **Experimento 6:**
 > El programa lanza un error cuando se intenta escribir el valor en el ArrayHeap[0] porque esa parte de la memoria ya ha sido borrada. La línea que debe comentarse es `//delete[] arrayHeap;`, lo cuál permite que se ejecute correctamente y escriba el valor "10" al final. La memoria en el stack se borra automáticamente al salir de las funciones, mientras que en el stack toca hacer la asignación y eliminación manualmente. Si no se libera, puede llegar a ocupar cantidades grandes de la memoria y provocar que todo el sistema corra más lento.  
 ___
-### 📝 Actividad 05
+### 📝 Actividad integradora de investigación
+
+🌱 **¿Cuál será la salida final en la consola de este programa?**  
+> Creo que va a ser:  
+> `Valor inicial de A: 20`  
+> `Dentro de sumaPorValor, 'a' ahora es: 30`  
+> `Valor final de val_A: 20`  
+> `Valor inicial de B: 20`  
+> `Dentro de sumaPorValor, 'b' ahora es: 30`  
+> `Valor final de val_B: 30`  
+> `Valor inicial de C: 20`  
+> `Dentro de sumaPorValor, 'c' ahora es: 30`  
+> `Valor final de val_C: 30`  
+> --- Experimento con variables estáticas ---  
+> `Llamada a ejecutarContador. Valor de contador_estatico: 1`   
+> `Llamada a ejecutarContador. Valor de contador_estatico: 2`  
+> `Llamada a ejecutarContador. Valor de contador_estatico: 3`  
+> El contador global ni se usa ni se escribe.  
+  
+🌿 **Dibuja un mapa de memoria conceptual de este programa justo antes de que main finalice. Debes indicar en qué segmento de memoria (Stack, Heap, Datos Globales/Estáticos, Código) se encontraría cada una de las siguientes variables: contador_global, contador_estatico, val_A, val_B, val_C (dentro de main), el parámetro a de la función sumaPorValor, la función main misma.**  
+  
+| Código | Globales / estáticas | Heap | Stack |
+|--------|----------------------|------|-------|
+| main() | contador_global, contador_estatico | N/A | val_A, val_B, val_C |
+
+El parámetro a de la función sumaPorValor (CREO QUE) ya no estaría almacenado en el stack, porque solamente aparece mientras se ejecuta la función...  
+  
+``︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶  ``
+  
+🌼 **Compara la salida real con tu predicción. Si hubo diferencias, explica por qué ocurrieron. Evidencia clave: capturas de pantalla antes y después de los puntos de interés (¿Cuáles son esos puntos? -> tu tarea analizarlo).**
+> No hubo diferencias :>  
+Después de inicializar las variables val_A, val_B, val_C (lo puse en esta otra ventana de locals porque en la normal al darle f5 -> f10 me estaba borrando el valor de A cuando salía C >:( ) :  
+<img width="950" height="442" alt="image" src="https://github.com/user-attachments/assets/a3ceb164-4e9c-45c2-aff5-faf34ac7eb36" />
+val_A se mantiene igual.
+    
+Después de llamar sumaPorReferencia:  
+<img width="920" height="581" alt="image" src="https://github.com/user-attachments/assets/8d6b9c48-2a24-4e34-9344-6ad4bb721389" />  
+val_B cambia a 30.  
+  
+Cuando estoy llamando sumaPorPuntero:  
+<img width="928" height="425" alt="image" src="https://github.com/user-attachments/assets/31e79e50-8af4-4ff0-8a44-6245f0bc8275" />  
+toma &val_c como una variable, en Autos me dice que su valor es `0x0000001e9f56f8a4 {20}` y que su tipo es	`int *`. Asumo que está diciendo que ese número súper largo es la dirección de la memoria, el 20 el valor almacenado en ella, y es un int* porque es un puntero.  
+  
+Después de llamar sumaPorPuntero:  
+<img width="931" height="372" alt="image" src="https://github.com/user-attachments/assets/b901bceb-9bd1-4426-903e-325f78490fe2" />  
+Ahora en el valor de &val_c sale `0x0000001e9f56f8a4 {30}`, y en el valor de val_C sale 30.  
+
+Después de llamar ejecutarContador() 3 veces:  
+<img width="930" height="323" alt="image" src="https://github.com/user-attachments/assets/972cc71d-7add-4c2f-b16d-5edeba25888e" />  
+No aparece ningún cambio  ni variable en Autos. No sé por qué no se muestra el cambio del valor del contador ni la variable en general... puede ser porque no está en esa sección de la memoria que Autos trackea?  
+  
+``︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶୨୧︶︶⊹︶︶⊹︶︶୨୧︶︶⊹︶⊹︶︶︶⊹︶︶  ``
+  
+🌻 **Describe qué demuestran estas capturas sobre la diferencia entre los diferentes tipos de paso por parámetros analizados.**
+|Primera captura | Por valor | Por referencia | Por puntero |
+|----------------|-----------|----------------|-------------|
+| Muestra los valores iniciales de las 3 variables | La captura demuestra que el valor de val_A luego de ejecutarse sigue siendo exactamente igual | la captura demuestra que el valor está cambiando luego de ejecutarse, por lo que sé que se altera directamente la original | mostró cómo se llamaba la dirección en la memoria de la variable, cómo modificaba el valor almacenado en dicha región, y que demostró que el cambio es directo a val_C | 
+
+🌱 **Explica con tus propias palabras el comportamiento de contador_estatico. ¿Por qué “recuerda” su valor entre llamadas a la función ejecutarContador? ¿En qué se diferencia de una variable local normal?**  
+> Las variables locales normalitas se inicializan y destruyen cada vez que se llama la función correspondiente. No se comparten entre instancias de objetos. Por otro lado, las variables estáticas mantienen ese valor almacenado y compartido entre todas las instancias de los objetos de esa clase, y se inicializan solamente en la primera ejecución. No se destruye cuando se sale de la función que le corresponde.  
