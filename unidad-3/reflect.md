@@ -3,7 +3,7 @@
 
 ## 🤔 Fase: Reflect
 
-###📝Actividad 11
+### 📝Actividad 11
 
 🌱 **Explica con tus propias palabras qué es el stack y qué es el heap en C++.**  
 > `Stack:` es la parte de la memoria que se encarga de almacenar datos con un ciclo de vida limitado a la función/método donde se encuentran. Son inicializados al momento de entrar a su método correspondiente, y al salir de este, son eliminadas de la memoria. Ahí se almacenan los parámetros, variables creadas en el main...
@@ -33,3 +33,4 @@ ___
 
 🌼 **Si tuvieras que explicar a un compañero de semestres anteriores por qué es importante entender la gestión de memoria en programación, ¿Qué le dirías en máximo 3 oraciones?**  
 >
+
