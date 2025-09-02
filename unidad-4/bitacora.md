@@ -200,6 +200,8 @@ void ofApp::keyPressed(int key) {
 	}
 	if (key == 'a') {
 		// TODO: alternar entre 50 y 100 trazos.
+		strokes.clear();
+
 		static bool is50 = true;
 		if (is50) {
 			strokes.maxSize = 100;
@@ -241,5 +243,6 @@ int main( ){
 ## Demostración:
 
 [Aquí está el video demostrativo de mi aplicación](url del video no listado en youtube)
+
 
 
