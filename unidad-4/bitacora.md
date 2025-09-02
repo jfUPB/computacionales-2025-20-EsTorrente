@@ -142,6 +142,8 @@ Código para ofApp.cpp:
 ``` cpp
 #include "ofApp.h"
 
+float strokeOpacity;
+
 //--------------------------------------------------------------
 void ofApp::setup() {
 	ofBackground(0);
@@ -155,16 +157,15 @@ void ofApp::update() {
 	// TODO: agregar un nuevo trazo si el mouse está presionado.
 	// Usa strokes.enqueue(x, y, radius, color, opacity);
 
-	if (ofGetMousePressed())
-	{
+
+	if (ofGetMousePressed()) {
 		ofColor colorRandom;
 
 		colorRandom.setHsb(ofRandom(255), 100, 250);
 
-		strokes.enqueue(ofGetMouseX(), ofGetMouseY(), ofRandom(5, 20), colorRandom, ofRandom(150,200));
+		strokes.enqueue(ofGetMouseX(), ofGetMouseY(), ofRandom(10, 20), colorRandom, strokeOpacity);
 	}
-
-	}
+}
 
 //--------------------------------------------------------------
 void ofApp::draw() {
@@ -177,9 +178,15 @@ void ofApp::draw() {
 	// TODO: dibujar los trazos almacenados en la cola.
 	// Recorre los nodos desde strokes.front hasta nullptr y usa ofDrawCircle().
 
+	int index = 0;
+
 	Node * current = strokes.front;
 	while (current != nullptr) {
-		ofSetColor(current->color, current->opacity);
+
+		strokeOpacity = ofMap(index++, 0, strokes.size - 1, 2, 200);
+
+		ofSetColor(current->color, strokeOpacity);
+
 		ofDrawCircle(current->x, current->y, current->radius);
 		current = current->next;
 	}
@@ -234,4 +241,5 @@ int main( ){
 ## Demostración:
 
 [Aquí está el video demostrativo de mi aplicación](url del video no listado en youtube)
+
 
