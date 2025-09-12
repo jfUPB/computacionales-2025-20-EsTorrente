@@ -70,24 +70,20 @@ ___
 🌼 **Ahora prueba con este programa. ¿Qué pasa?**  
 > Se está utilizando un puntero para acceder directamente al valor almacenado en la variable original sin lanzar un error. Veo que hace un puntero para cada variable, y para los punteros del float y el char está sumándole +1 al valor del anterior... por lo que podría concluir que, como mencioné también en puntos anteriores, las variables se almacenan en posición consecutiva en la memoria.  
   
-> Diría que el encapsulamiento es una manera de prevenir accidentes a la hora de acceder a valores en la memoria. Es una forma de proteger los datos, permitiendo un control riguroso de cada acción que se realiza sobre una variable. Es importante porque sabemos que los usuarios suelen realizar acciones impredecibles sin guiarse necesariamente por las indicaciones que damos, y esto permite restringir su capacidad de dañarlo todo :(
+> Diría que el encapsulamiento es una manera de prevenir accidentes a la hora de acceder a valores en la memoria. Es una forma de proteger los datos, permitiendo un control riguroso de cada acción que se realiza sobre una variable. Es importante porque sabemos que los usuarios (y programadores) suelen realizar acciones impredecibles sin guiarse necesariamente por las indicaciones que damos, y esto permite restringir su capacidad de ingresar datos inválidos y dañarlo todo :(
 
 ___
 
 ## Actividad 05
 
-🌱 **Ejecuta este código. Luego, descomenta las líneas que están comentadas y vuelve a compilar. ¿Qué sucede? ¿Por qué sucede esto? ¿Qué puedes concluir?**  
-> Al ejecutarlo por primera vez, no da ningún problema. El programa se ejecuta con normalidad porque solamente está intentando acceder a la variable pública de la clase AccessControl. Al descomentarlas, inmediatamente lanza un error que no permite completar la compilación (como lo había predecido en actividades anteriores). Sucede porque las variables de la clase AccessControl a la que está intentando acceder son:  
-> 1. Protected: que significa que solamente sus subclases y ella misma van a poder verla y modificarla.  
-> 2. Private: que dice que solamente su misma clase puede tocarla.
+🌱 ****  
+> 
   
-🌿 **Ahora quiero que notes algo. El encapsulamiento solo lo podemos garantizar en tiempo de compilación. Sin embargo, en tiempo de ejecución podemos acceder a los campos privados de un objeto. Analiza el siguiente programa. Compila el programa. ¿Qué pasa?**  
-> Se está intentando hacer print de una variable privada. Lanza un error y no permite depurarlo. Si se comenta esa línea, el método público mostraría los valores sin problema.
+🌿 ****  
+> 
   
-🌼 **Ahora prueba con este programa. ¿Qué pasa?**  
-> Se está utilizando un puntero para acceder directamente al valor almacenado en la variable original sin lanzar un error. Veo que hace un puntero para cada variable, y para los punteros del float y el char está sumándole +1 al valor del anterior... por lo que podría concluir que, como mencioné también en puntos anteriores, las variables se almacenan en posición consecutiva en la memoria.  
-  
-> Diría que el encapsulamiento es una manera de prevenir accidentes a la hora de acceder a valores en la memoria. Es una forma de proteger los datos, permitiendo un control riguroso de cada acción que se realiza sobre una variable. Es importante porque sabemos que los usuarios suelen realizar acciones impredecibles sin guiarse necesariamente por las indicaciones que damos, y esto permite restringir su capacidad de dañarlo todo :(  
+🌼 ****  
+> 
 
 ## 3.  **Registro de exploración:** 
 > Aquí documentas cada ciclo de pregunta -> hipótesis -> experimento -> hallazgo -> reflexión.
