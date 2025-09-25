@@ -22,8 +22,8 @@
 🌿 **¿Observas los diferentes tipos de “partículas”? ¿Se comportan todas igual inicialmente?**
 > Como tal, la clase partícula no tiene subclases. Lo que hace que sean varios tipos es que en la creación de las partículas se le asignan distintos atributos. En el OffApp.cpp sí se inician las partículas como conjunto con unos atributos base, pero luego, desde el setup, se le está diciendo al programa que cree 100 partículas star, 5 shooting stars, 10 planets con el método `createParticle`. En ese método se modifican los atributos default de acuerdo al string con el que se envió la partícula al método. Para star, solamente cambian su tamaño y su color. Para shooting star, cambian su tamaño, su color y se le asigna una mayor velocidad (se multiplica la default x 3). Para planets, sólo se modifica su color y su tamaño. En ese sentido, sí podría decirse que la clase Particle se inicia con el mismo comportamiento, pero es inmediátamente modificado en setup.  
 
-🌼 **Toma algunas capturas de pantalla de la aplicación en diferentes momentos (estado inicial, después de presionar ‘a’, ‘r’, ‘s’, ‘n’) y añádelas a tu bitácora.**
-Puse las capturas [aquí, en la primera pregunta](#Capturas). 
+🌼 **Toma algunas capturas de pantalla de la aplicación en diferentes momentos (estado inicial, después de presionar ‘a’, ‘r’, ‘s’, ‘n’) y añádelas a tu bitácora.**  
+> Puse las capturas [aquí, en la primera pregunta](#Capturas). 
 
 🌻 **¿Qué crees que está pasando “detrás de cámaras” cuando presionas las teclas? Formula una hipótesis inicial sobre cómo la aplicación cambia el comportamiento de las partículas.**
 > En el estado de stop, la velocidad es 0 (no hay movimiento). En el estado normal, se le asigna una velocidad random que se le suma a su posición. Para repelerla y atraerla, me imagino que la posición de la partícula está siendo sumada o restada por la posición del mouse... al mismo tiempo, creo que la velocidad se estaría multiplicando por el valor de una fuerza que actúa sobre ella.
