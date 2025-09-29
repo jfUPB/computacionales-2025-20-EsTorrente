@@ -31,5 +31,29 @@
 ___
 
 ### 📝 Actividad 2
+🌱 **Explica con tus propias palabras el propósito del patrón Observer. ¿Qué problema resuelve?**
+> El patrón Observer provoca que las clases dependan menos entre ellas, lo que es bueno porque significa menor acoplamiento. Además, como mencionaste en la clase, permite que muchas personas trabajen en sus clases separadas sin tener que esperar a recibir los avances de los demás, sino que todo puede adelantarse y simplemente ponerse de acuerdo en la interfaz del Observer.  
+  
+🌿 **Dibuja un diagrama que muestre la relación entre Subject, Observer, ofApp y Particle en el caso de estudio, indicando quién es el Sujeto y quiénes los Observadores.**
+<img width="1162" height="660" alt="image" src="https://github.com/user-attachments/assets/fa257073-6a83-4767-bed7-31e3b4523cb6" />  
+   
+🌼 **Construye un diagrama de secuencia que muestre cómo funciona el patrón Observer al presionar una tecla.**  
+<img width="978" height="829" alt="image" src="https://github.com/user-attachments/assets/c1596543-3fff-4834-8b7e-6293fbd939dd" />  
 
+🌻 **¿Qué ventajas crees que ofrece usar el patrón Observer en esta aplicación en comparación con, por ejemplo, que ofApp::update recorriera todas las partículas y les dijera directamente que cambien su comportamiento basado en una variable global? Piensa en términos de acoplamiento y extensibilidad.**
+> ofApp tendría que tener acceso a las variables internas de cada particle, estaría haciendo demasiadas tareas solita y se enreda si se quieren agregar comportamientos diferentes. Con el observer, el ofApp nada más manda notificación y las partículas ven cómo reaccionan por su cuenta. Cada clase queda con poquitas responsabilidades, y además, el sistema de notificaciones es útil para otras funciones si se quieren implementar en el futuro.
 
+___
+
+### 📝 Actividad 3
+🌱 **Explica con tus propias palabras el propósito del patrón Factory Method (o Simple Factory, en este caso). ¿Qué problema principal aborda en la creación de objetos?**
+> El patrón Observer provoca que las clases dependan menos entre ellas, lo que es bueno porque significa menor acoplamiento. Además, como mencionaste en la clase, permite que muchas personas trabajen en sus clases separadas sin tener que esperar a recibir los avances de los demás, sino que todo puede adelantarse y luego unirse a través del concrete subject.
+  
+🌿 **¿Qué ventajas aporta el uso de ParticleFactory en ofApp::setup en comparación con instanciar y configurar las partículas directamente allí? Piensa en términos de organización del código (SRP - Single Responsibility Principle), legibilidad y facilidad para añadir nuevos tipos de partículas en el futuro.**
+<img width="1162" height="660" alt="image" src="https://github.com/user-attachments/assets/fa257073-6a83-4767-bed7-31e3b4523cb6" />  
+   
+🌼 **Construye un diagrama de secuencia que muestre cómo funciona el patrón Observer al presionar una tecla.**  
+<img width="978" height="829" alt="image" src="https://github.com/user-attachments/assets/c1596543-3fff-4834-8b7e-6293fbd939dd" />  
+
+🌻 **¿Qué ventajas crees que ofrece usar el patrón Observer en esta aplicación en comparación con, por ejemplo, que ofApp::update recorriera todas las partículas y les dijera directamente que cambien su comportamiento basado en una variable global? Piensa en términos de acoplamiento y extensibilidad.**
+> ofApp tendría que tener acceso a las variables internas de cada particle, estaría haciendo demasiadas tareas solita y se enreda si se quieren agregar comportamientos diferentes. Con el observer, el ofApp nada más manda notificación y las partículas ven cómo reaccionan por su cuenta. Cada clase queda con poquitas responsabilidades, y además, el sistema de notificaciones es útil para otras funciones si se quieren implementar en el futuro.
