@@ -493,10 +493,9 @@ void ofApp::keyPressed(int key) {
 
 ___
 
-### 📝 Autoevaluación
+# 📝 Autoevaluación
 
 ### 🌱 **Nota Propuesta: 5**
-
 
 | Actividad | Evaluación | Justificación / Evidencias |
 |-----------|------------|----------------------------|
