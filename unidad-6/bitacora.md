@@ -25,15 +25,17 @@
 🌼 **Toma algunas capturas de pantalla de la aplicación en diferentes momentos (estado inicial, después de presionar ‘a’, ‘r’, ‘s’, ‘n’) y añádelas a tu bitácora.**  
 > Puse las capturas [aquí, en la primera pregunta](#Capturas). 
 
+<a name="AnalisisPrograma"></a>
 🌻 **¿Qué crees que está pasando “detrás de cámaras” cuando presionas las teclas? Formula una hipótesis inicial sobre cómo la aplicación cambia el comportamiento de las partículas.**
-> En el estado de stop, la velocidad es 0 (no hay movimiento). En el estado normal, se le asigna una velocidad random que se le suma a su posición. Para repelerla y atraerla, me imagino que la posición de la partícula está siendo sumada o restada por la posición del mouse... al mismo tiempo, creo que la velocidad se estaría multiplicando por el valor de una fuerza que actúa sobre ella.
+> En el estado de stop, la velocidad es 0 (no hay movimiento). En el estado normal, se le asigna una velocidad random que se le suma a su posición. Para repelerla y atraerla, me imagino que la posición de la partícula está siendo sumada o restada por la posición del mouse... al mismo tiempo, creo que la velocidad se estaría multiplicando por el valor de una fuerza que actúa sobre ella. Veo que las partículas están cambiando de estados en base a una notificación que les envía un evento. Dependiendo de la notificación que les llegue, se settean en un estado... y cada uno de esos estados tiene un método que modifica los valores de los atributos en TOOODAS las partículas que están instanciadas.  
 
 ___
 
 ### 📝 Actividad 2
 🌱 **Explica con tus propias palabras el propósito del patrón Observer. ¿Qué problema resuelve?**
 > El patrón Observer provoca que las clases dependan menos entre ellas, lo que es bueno porque significa menor acoplamiento. Además, como mencionaste en la clase, permite que muchas personas trabajen en sus clases separadas sin tener que esperar a recibir los avances de los demás, sino que todo puede adelantarse y simplemente ponerse de acuerdo en la interfaz del Observer.  
-  
+
+<a name="Diagrama02"></a>
 🌿 **Dibuja un diagrama que muestre la relación entre Subject, Observer, ofApp y Particle en el caso de estudio, indicando quién es el Sujeto y quiénes los Observadores.**
 <img width="1162" height="660" alt="image" src="https://github.com/user-attachments/assets/fa257073-6a83-4767-bed7-31e3b4523cb6" />  
    
@@ -46,12 +48,14 @@ ___
 ___
 
 ### 📝 Actividad 3
+<a name="FactoryProposito"></a>
 🌱 **Explica con tus propias palabras el propósito del patrón Factory Method (o Simple Factory, en este caso). ¿Qué problema principal aborda en la creación de objetos?**
 > Simplifica mucho el proceso de creación de objetos. No deja códigos new en todas partes, sino que encapsula todo en un método que se encargue de separar las distintas variaciones posibles y cómo instanciarlas. El problema principal que soluciona es que si hay que hacer modificaciones, arreglar código, hacer debug o agregar un tipo nuevo de partícula, es MUCHÍSIMO más fácil sólo revisar un método en una clase, que irse a buscar un montón de métodos chiquitos súper parecidos en miles de clases.  
   
 🌿 **¿Qué ventajas aporta el uso de ParticleFactory en ofApp::setup en comparación con instanciar y configurar las partículas directamente allí? Piensa en términos de organización del código (SRP - Single Responsibility Principle), legibilidad y facilidad para añadir nuevos tipos de partículas en el futuro.**
 > Le permite al ofApp seguirse concentrando en una sola función: recibir inputs y mandar notificaciones, fin. Es bueno que en un código, cada método y cada clase tenga funciones muy específicas. ParticleFactory tiene solo una función: instanciar los distintos tipos de partículas, fin. Gracias a eso, como mencioné antes, es muchísimo más fácil realizar modificaciones y adiciones al código.  
-   
+
+<a name="BlackHole"></a>
 🌼 **Imagina que quieres añadir un nuevo tipo de partícula llamada "black_hole" que tiene tamaño grande, color negro y velocidad muy lenta. Describe los pasos que necesitarías seguir para implementar esto utilizando la ParticleFactory existente. ¿Tendrías que modificar ofApp::setup? ¿Por qué sí o por qué no?**  
 > Síp! para que en el setup le diga cuántas de esas partículas crear en el ParticleFactory. Es solamente agregar otro for donde se le indique la cantidad... pero lo de cambiar los atributos del tamaño, color y velocidad sería TODO en el ParticleFactory, ahí no se tiene que tocar el setup en absoluto. O sea, no tengo que cambiar nada de la lógica... solamente copi pastear y cambiar el nombre de la partícula.  
 
@@ -63,10 +67,12 @@ ___
 ### 📝 Actividad 4
 🌱 **Explica con tus propias palabras el propósito del patrón State. ¿Cuándo es útil aplicarlo?**
 > En vez de tener un montón de ifs o switchs que checkeen un montón de estados posibles, permite encapsularlos todos. Se implementan cuando un objeto tiene que hacer cambios internos tan drásticos que hasta parecen una clase diferente. También te da la capacidad de definir transiciones entre los estados (al entrar y salir de ellos).   
-  
+
+<a name="Diagrama04"></a>
 🌿 **Dibuja un diagrama de estados simple para la clase Particle. Muestra los diferentes estados (Normal, Attract, Repel, Stop) como nodos y las transiciones entre ellos como flechas etiquetadas con el evento que las causa (p. ej., la tecla presionada: ‘n’, ‘a’, ‘r’, ‘s’).**  
 <img width="1086" height="450" alt="image" src="https://github.com/user-attachments/assets/24dec6db-17e9-482f-9af1-028e105f50e3" />  
-  
+
+<a name="VentajasState"></a>
 🌼 **Describe las ventajas de usar el patrón State en Particle en lugar de tener un miembro std::string estadoActual y usar un gran if/else if/else o switch dentro de Particle::update() para cambiar el comportamiento. Piensa en cohesión, extensibilidad (añadir nuevos estados) y el Principio Abierto/Cerrado (Open/Closed Principle).**  
 > Otra vez volvemos a que cada clase debe tener funciones muy específicas, todo debe tener el menor grado de acoplamiento posible, no deben depender unas de otras, y NO SE DEBE TENER QUE ABRIR EL PARTICLE PARA MODIFICARLO!! entonces, tener un montón de switch o ifs dentro de esa clase probocaría que:  
 > 1. Tocara abrirla para quitar/agregar estados, lo cuál va en contra del principio.  
@@ -484,3 +490,20 @@ void ofApp::keyPressed(int key) {
     }
 }
 ```
+
+___
+
+### 📝 Autoevaluación
+
+### 🌱 **Nota Propuesta: 5**
+
+
+| Actividad | Evaluación | Justificación / Evidencias |
+|-----------|------------|----------------------------|
+| ⭐ 01 | Excelente | Considero que identifiqué claramente el [funcionamiento interno](#AnalisisPrograma) de presionar cada tecla ("a" atrae, "r" repele, "s" detiene, "n" normal), tomé capturas de pantalla representativas de cada estado y formulé hipótesis fundamentadas sobre el comportamiento interno. Logré analizar correctamente cómo la clase Particle se modifica mediante el factory para crear diferentes tipos de partículas, demostrando comprensión tanto del comportamiento observable como de la implementación que le sigue. |
+| ⭐ 02 | Excelente | Comprendí el patrón Observer y su implementación en el código. Creé [diagramas](#Diagrama02) claros que ilustran las relaciones entre Subject, Observer, ofApp y Particle, y desarrollé un diagrama detallado que explica el flujo de notificaciones. Mi análisis sobre las ventajas del patrón (bajo acoplamiento, alta extensibilidad) demuestra que internalicé bien los conceptos teóricos y los relacioné con el caso práctico. Creo que identifiqué correctamente todos los componentes del patrón y su interacción en el código. |
+| ⭐ 03 | Excelente | Analicé críticamente la implementación del Factory Method en el código. En mi bitácora, expliqué con claridad el [propósito del patrón](#FactoryProposito) y sus ventajas respecto al principio de responsabilidad única. Mi respuesta sobre cómo añadir una nueva partícula ["black_hole"](#BlackHole) muestra comprensión práctica del patrón: identificué que solo sería necesario modificar ParticleFactory, no ofApp::setup. Además, evalué las implicaciones de usar un método estático versus de instancia, demostrando capacidad de análisis técnico. |
+| ⭐ 04 | Excelente | Demostré dominio completo del patrón State mediante análisis teórico y práctico. Creé un [diagrama](#Diagrama04) de estados preciso que muestra todas las transiciones posibles, y analicé [ventajas específicas](#VentajasState) como mejor cohesión, adherencia al principio abierto/cerrado y mayor escalabilidad. Mi explicación sobre los métodos onEnter y onExit incluye ejemplos creativos y prácticos que van más allá del caso de estudio, mostrando capacidad de aplicar el concepto fuera del ejemplo. |
+| ⭐ 05 | Excelente | Implementé una modificación creativa al añadir partículas "rebeldes". Como se evidencia en el código completo que incluí en la bitácora, demostré dominio práctico de los tres patrones: **Factory** (añadí caso "rebel" en ParticleFactory), **Observer** (mantuve el registro de observadores) y **State** (modifiqué la lógica de transición en onNotify). Reutilicé los estados existentes pero con lógica invertida, mostrando comprensión profunda de la arquitectura y demostrando la ventaja de trabajar modularmente. |
+
+En cada actividad, analicé ventajas y desventajas, consideré alternativas de implementación y reflexioné sobre principios de diseño. Considero que merezco el 5.0 por haber completado todas las actividades, demostrado comprensión profunda de los tres patrones de diseño, y aplicado los conceptos de manera creativa.
