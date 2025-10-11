@@ -102,3 +102,49 @@ ___
 ___
 ### 📝 Actividad 04
 
+🌱 **Luego de estudiar las unidades 1 y 2 de este curso y ver el video, escribe con tus propias palabras ¿Cuál es la diferencia entre una CPU y una GPU?**  
+> CPU ejecuta tareas en secuencia (paso por paso) pero es más especializada para cositas complejas. GPU deja que la CPU haga otros cálculos mientras, y se usa más para cositas gráficas como renderizar en blender porque puede hacer MUCHAS cosas de una.  
+
+🌿 **Preguntas:**
+**¿Cuáles son los tres pasos claves del pipeline de OpenGL? Explica en tus propias palabras cuál es el objetivo de cada paso.**
+> `Vertex Shader:` Procesa cada vértice (posición, transformaciones)
+> `Rasterización:` Convierte las figuras en píxeles
+> `Fragment Shader:` Decide el color de cada píxel
+
+**La gran novedad que introduce OpenGL moderno es el pipeline programable. ¿Qué significa esto? ¿Qué diferencia hay entre el pipeline fijo y el programable? ¿Qué ventajas le ves a esto? y si el pipeline es programable, ¿Qué tengo que programar?**
+> Me imagino que la diferencia sería que el fijo es como una plantilla, y el programable te deja a ti tener full control sobre cada paso. Como en unreal, que te dan la opción de programar con nodos que ellos ya hicieron, o directamente hacerlo todo desde 0 con scripts de c++.  Me imagino que lo que tienes que programar es la forma en la que cada shader funciona, cuándo se llaman, cómo varía su comportamiento, los frames a los que el buffer se actualiza, esas cosas.  
+
+**Si fueras a describir el proceso de rasterización ¿Qué dirías?**
+> Agarrar los vértices que componen una figurita y calcular cuáles de los pixeles de la pantalla están dentro de esos vértices para poder dibujarlo.  
+
+**¿Qué son los fragmentos? ¿Es lo mismo un fragmento que un pixel? ¿Por qué?**
+> Sí, pero no. Los fragmentos son grupitos de pixeles que están en la misma figurita y tienen la misma textura/color. Dos pixeles pueden no ser del mismo fragmento, pero cada fragmento está compuesto por pixeles.   
+  
+**Explica qué problema resuelve el Z-buffer y ¿Qué es el depth test?**
+> Define qué figuritas están más al frente y son visibles. Si hay varias figuritas muy cerquita en el axis z, empiezan como a buggearse una encima de otra. Le agrega datos más precisos a cada vértice para que pueda definir con más acertada su posición respecto a la cámara. Así dibuja solamente los colorcitos y texturas de lo que está más al frente.  
+
+**¿Por qué se presenta el problema de la aliasing? ¿Qué es el anti-aliasing?**
+> Porque pintan todos los pixelitos de un triángulo con full textura y opacidad del color, entonces todo se ve muy cuadriculado. El anti-aliasing suaviza esos bordes oscureciendo un poquito los pixeles de los bordes, y así, como los pixeles están junticos, se van como mezclando para el ojo y se ve mucho más suavecito.    
+
+**¿Qué relación hay entre la iluminación y el fragment shader? Siempre es necesario tener en cuenta la iluminación en un fragment shader? o puedo hacer un fragment shader sin iluminación? Explica que implicaciones tiene esto.**
+> El fragment shader CALCULA la iluminación y su efecto en los fragmentos dependiendo del material, pero no es obligatorio. Por ejemplo, en un modelo 3D tipo anime, tener sombras realistas calculadas hace que se vea HORRENDO porque las formitas no son naturales para una cara humana, y por ende, tampoco las sombras. Tener un material al que no lo afecta la luz en absoluto sino que tiene un color constante ayuda a imitar esa sensación de dibujito anime 2D.    
+
+**¿Qué implica para la GPU que una aplicación tenga múltiples fuentes de iluminación?**  
+>La GPU tiene que hacer más cálculos por cada fuente de luz adicional.  
+
+🌼 **Escribe un resumen en tus propias palabras de lo que se necesita para dibujar un triángulo en OpenGL.**  
+> 1. Crear ventana con GLFW  
+> 2. Configurar VBO con datos de vértices    
+> 3. Configurar VAO para decir cómo leer el VBO  
+> 4. Compilar shaders (vertex + fragment)  
+> 5. En cada frame: limpiar, usar shader, bind VAO, dibujar  
+  
+🌻 **Escribe un resumen en tus propias palabras de lo que necesitas para poder usar un shader en OpenGL.**  
+> 1. Escribir código GLSL  
+> 2. Compilar cada shader por separado  
+> 3. Linkearlos en un programa  
+> 4. Usar glUseProgram() para activarlos  
+
+
+___
+### 📝 Actividad 05
