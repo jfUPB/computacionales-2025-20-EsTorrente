@@ -399,6 +399,19 @@ int main()
 🌱 ¿Qué otros efectos visuales simples podrías lograr usando el tiempo como uniform? Piensa en la posición, el tamaño o la rotación (aunque no hemos visto rotaciones formalmente, ¡intuitivamente podrías intentarlo!). Anota al menos una idea.
 > Que vaya pulsando también haciéndose más grande o más pequeño, que se vaya moviendo un poquito a la derecha e izquierda con suavizado para que se sienta como que está colgando del mouse, que vaya a la posición contraria del mouse (o sea, si el mouse está en x=1, el triángulo va a x=-1)...
 
+
 ___
 
+# 📝 Autoevaluación
 
+### 🌱 **Nota Propuesta: 5**
+
+| Actividad | Evaluación | Justificación / Evidencias |
+|-----------|------------|----------------------------|
+| ⭐ 01 | Excelente | Demostré comprensión inicial del entorno OpenGL. Identifiqué correctamente la estructura del proyecto y las bibliotecas clave (`iostream`, `glad/glad.h`, `GLFW/glfw3.h`). Formulé preguntas fundamentales que , como siempre me pasa, tú mismo planteaste y explicaste después: diferencia entre shaders, propósito de VAO/VBO, relación framebuffer-ventana, y función del V-Sync. |
+| ⭐ 02 | Excelente | Comprendí completamente el proceso de configuración de un proyecto OpenGL desde cero. Mi resumen detalló paso a paso la organización de dependencias (GLFW, GLAD, GLM) y demostró comprensión clara de los roles de cada componente: GLFW para ventanas/inputs, GLAD como intermediario de funciones OpenGL, y la diferencia entre archivos .lib y .dll. Internalicé la arquitectura de trabajo entre CPU, GPU y las bibliotecas de soporte. |
+| ⭐ 03 | Excelente | Realicé experimentación activa y análisis crítico del pipeline gráfico. Mis pruebas con `glfwSwapBuffers()` demostraron comprensión práctica del double buffering. Experimenté exitosamente con `glDrawArrays` probando diferentes primitivas (GL_LINES, GL_POINTS) y parámetros. Mis explicaciones mostraron dominio de contexto OpenGL, framebuffer, viewport, y la relación CPU-GPU. |
+| ⭐ 04 | Excelente | Me vi el video completo de 20 minutos. Identifiqué correctamente los tres pasos clave (Vertex Shader, Rasterización, Fragment Shader) y su propósito. Mi análisis del pipeline programable vs fijo incluyó analogías creativas (Unreal Engine nodes vs scripts) y comprendí las implicaciones prácticas. Resumí los conceptos avanzados vistos en el video como Z-buffer, anti-aliasing, y la relación iluminación-fragment shader, incluyendo ejemplos aplicados (estilo anime). Mis resúmenes fueron concisos y precisos. |
+| ⭐ 05 | Excelente | Implementé exitosamente interactividad mediante uniforms, comprendiendo y aplicando el concepto de variables globales en shaders, normalización de coordenadas de mouse a diferentes sistemas (pantalla 0-1, NDC -1 a 1), y manejo correcto de la inversión del eje Y. El programa corrió correctamente. |
+| ⭐ 06 (APPLY) | Excelente | Cumplí con el objetivo de modificar el color con el tiempo. Implementé un nuevo uniform `time`, usé funciones trigonométricas (sin/cos) para ciclos de color, y comprendí perfectamente el mapeo matemático de `-1 -> 1` a `0 -> 1` para valores RGB. Mi código completo funciona correctamente. Generé ideas adicionales creativas (pulsación, movimiento suave, posición invertida). |
+  
