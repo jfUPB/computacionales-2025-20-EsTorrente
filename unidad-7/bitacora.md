@@ -148,3 +148,257 @@ ___
 
 ___
 ### 📝 Actividad 05
+<img width="426" height="459" alt="image" src="https://github.com/user-attachments/assets/375a30e5-d273-46ea-b547-b38fc0f26da9" /> <img width="420" height="437" alt="image" src="https://github.com/user-attachments/assets/55fa6ad4-5eb7-40f0-98d9-90de729e26dd" /><img width="399" height="436" alt="image" src="https://github.com/user-attachments/assets/1c806cb5-0d64-4eea-9a96-ffdca6c095eb" /><img width="417" height="441" alt="image" src="https://github.com/user-attachments/assets/5d250132-abe1-43eb-aad3-598d9403d64e" />  
+
+🌱 **Explica el proceso de normalización de las coordenadas del mouse y cómo se relaciona con el sistema de coordenadas de OpenGL.**
+> Las coordenadas del mouse vienen en píxeles de la ventana (ej: 150, 200). Las normalizo dividiendo entre el ancho y alto de la ventana para convertirlas a un rango de 0 a 1. Esto me permite mapear fácilmente a otros sistemas de coordenadas.
+  
+🌿 **Explica el proceso de normalización a coordenadas de dispositivo (NDC) y cómo se relaciona con el sistema de coordenadas de OpenGL.**
+> Primero, organizas X y Y para que sea un valor entre 0 y 1. OpenGL usa coordenadas de -1 a 1. Para convertir de mis coordenadas normalizadas (0-1) a NDC, dentro de los uniform:
+> En el color, lo dejas igual... de 0 a 1 para X y Y. Pero para la ubicación del triángulo:  
+> `X:` x * 2 - 1 = convierte `0 -> -1`, `0.5 -> 0`, `1 -> 1`  
+> `Y:` 1 - y * 2 = convierte `0 -> 1`, `0.5 -> 0`, `1 -> -1` (invierte el eje Y porque en pantalla Y va hacia abajo, pero en OpenGL va hacia arriba)
+
+___
+## 📝 APPLY
+
+🌱 **Cambios:**
+1. Agregué un nuevo uniform time en el fragment shader  
+2. Obtengo el tiempo usando glfwGetTime() dentro del loop principal  
+3. Envío el tiempo al shader con glUniform1f(timeLocation, currentTime) en cada frame (timelocation indica el uniform, currentTime es el que tiene el valor del tiempo. Dentro del uniform estaba declarado que la variable del shader de fragmentos que modifico es el time :P)  
+
+🌿 **Código:**
+```cpp
+#include <iostream>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+// Callback: ajusta el viewport cuando cambie el tamaño de la ventana
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+	glViewport(0, 0, width, height);
+}
+
+// Procesa entrada simple: cierra con ESC
+void processInput(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+}
+
+// Tamaño de las ventanas
+const unsigned int SCR_WIDTH = 400;
+const unsigned int SCR_HEIGHT = 400;
+
+// Fuentes de los shaders
+const char* vertexShaderSrc = R"glsl(
+	#version 460 core
+
+	layout(location = 0) in vec3 aPos;
+	uniform vec2 offset;
+
+	void main() {
+		vec3 newPos = aPos;
+		newPos.x += offset.x;
+		newPos.y += offset.y;
+		gl_Position = vec4(newPos, 1.0);
+	}
+)glsl";
+
+const char* fragmentShaderSrc = R"glsl(
+	#version 460 core
+
+	out vec4 FragColor;
+	uniform vec4 ourColor;
+	uniform float time;
+
+	void main() {
+		// usando seno para R y G, coseno para B :P
+		float r = (sin(time) + 1.0) / 2.0;        // tira datos entre 0 y 1
+		float g = (sin(time + 2.0) + 1.0) / 2.0;  // lo muevo más para que no sea lo mismo q el seno 1 zzz. Valores entre 0 y 1
+		float b = (cos(time) + 1.0) / 2.0;        // lo mismo q el seno 1
+		
+		FragColor = vec4(r, g, b, 1.0);
+	}
+)glsl";
+
+// IDs globales
+unsigned int VAO, VBO;
+unsigned int shaderProg;
+
+// Compila y linkea un programa de shaders, retorna su ID
+unsigned int buildShaderProgram() {
+	int success;
+	char log[512];
+
+	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vs, 1, &vertexShaderSrc, nullptr);
+	glCompileShader(vs);
+	glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+	if (!success) {
+		glGetShaderInfoLog(vs, 512, nullptr, log);
+		std::cerr << "ERROR VERTEX SHADER:\n" << log << "\n";
+	}
+
+	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fs, 1, &fragmentShaderSrc, nullptr);
+	glCompileShader(fs);
+	glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+	if (!success) {
+		glGetShaderInfoLog(fs, 512, nullptr, log);
+		std::cerr << "ERROR FRAGMENT SHADER:\n" << log << "\n";
+	}
+
+	unsigned int prog = glCreateProgram();
+	glAttachShader(prog, vs);
+	glAttachShader(prog, fs);
+	glLinkProgram(prog);
+	glGetProgramiv(prog, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(prog, 512, nullptr, log);
+		std::cerr << "ERROR LINKING PROGRAM:\n" << log << "\n";
+	}
+
+	glDeleteShader(vs);
+	glDeleteShader(fs);
+	return prog;
+}
+
+// Crea un VAO/VBO con los datos de un triángulo
+void setupTriangle() {
+	float vertices[] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.0f,  0.5f, 0.0f
+	};
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+}
+
+int main()
+{
+	// 1) Inicializar GLFW
+	if (!glfwInit()) {
+		std::cerr << "Fallo al inicializar GLFW\n";
+		return -1;
+	}
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// 2) Crear ventana
+	GLFWwindow* mainWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Triangulo con Color Ciclico", nullptr, nullptr);
+	if (!mainWindow) {
+		std::cerr << "Error creando ventana1\n";
+		glfwTerminate();
+		return -1;
+	}
+
+	// 3) Lee el tamaño del framebuffer
+	int bufferWidth, bufferHeight;
+	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
+	
+	// 4) Callbacks 
+	glfwSetFramebufferSizeCallback(mainWindow, framebuffer_size_callback);
+
+	// 5) Cargar GLAD y recursos en contexto de window1
+	glfwMakeContextCurrent(mainWindow);
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		std::cerr << "Fallo al cargar GLAD (contexto1)\n";
+		return -1;
+	}
+
+	// 6) Habilita el V-Sync
+	glfwSwapInterval(1);
+
+	// 7) Compila y linkea shaders
+	shaderProg = buildShaderProgram();
+
+	// agregado uniform de time
+	glUseProgram(shaderProg);
+	int offsetLocation = glGetUniformLocation(shaderProg, "offset");
+	int colorLocation = glGetUniformLocation(shaderProg, "ourColor");
+	int timeLocation = glGetUniformLocation(shaderProg, "time");
+
+	// 8) Genera el contenido a mostrar
+	setupTriangle();
+
+	// 9) Configura el viewport
+	glViewport(0, 0, bufferWidth, bufferHeight);
+
+	// 10) Loop principal
+	while (!glfwWindowShouldClose(mainWindow))
+	{
+		// 11) Manejo de eventos
+		glfwPollEvents();
+
+		// 12) Procesa la entrada
+		processInput(mainWindow);
+
+		// 13) Configura el color de fondo y limpia el framebuffer
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+		// 14) Indica a OpenGL que use el shader program
+		glUseProgram(shaderProg);
+
+		// agarra tiempo actual con la función que mencionaste :P
+		float currentTime = (float)glfwGetTime();
+		glUniform1f(timeLocation, currentTime);
+
+		// Dibuja el triángulo
+		double xpos, ypos;
+		glfwGetCursorPos(mainWindow, &xpos, &ypos);
+
+		// Normalizo las coordenadas del mouse
+		float x = (float)xpos / (float)SCR_WIDTH;
+		x < 0 ? x = 0 : x;
+		x > 1 ? x = 1 : x;
+
+		float y = (float)ypos / (float)SCR_HEIGHT;
+		y < 0 ? y = 0 : y;
+		y > 1 ? y = 1 : y;
+
+		// Envio el color y la posición del triángulo
+		glUniform4f(colorLocation, x, y, 0.0f, 1.0f);
+		glUniform2f(offsetLocation, x * 2 - 1, 1 - y * 2);
+
+		// 15) Activa el VAO y dibuja el triángulo
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		// 16) Intercambia buffers y muestra el contenido
+		glfwSwapBuffers(mainWindow);
+	}
+
+	// 17) Limpieza
+	glfwMakeContextCurrent(mainWindow);
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteProgram(shaderProg);
+
+	glfwDestroyWindow(mainWindow);
+	glfwTerminate();
+	return 0;
+}
+```
+🌼 **Explica cómo usaste la función de tiempo (sin, cos, u otra) para lograr el efecto de cambio de color cíclico. ¿Qué rango de valores produce tu cálculo y cómo afecta eso al color final?**
+> El seno lo usé para el r y g del rgb. El coseno para el b. Así solitos, tiran valores de -1 y 1... y eso no me sirve para colores, entonces toca mapearlo. Problema: que yo estoy acostumbrada a rgb de 255 como valor, entonces no entendía por qué tú no mapeaste tu color en el ejemplo de la actividad 1 a más de 0 y 1. Me fui a buscar, y es que al parecer opengl usa ese rango para rgb. Muy hater. Pero bueno, 0 problemas. Entonces modifiqué el seno y el coseno sumándole 1 y dividiéndolo entre 2. Así, si el dato es -1, = 0. Si es 0, = 0. Si es algo en medio, no importa. Si es 1, = 1.    
+  
+🌻**Incluye una captura de pantalla o UN ENLACE a un video mostrando el resultado del triángulo con color cambiante.**  
+ > lo hice en base al de la actividad 5, entonces igual sigue el mouse... pero lo voy a dejar en un solo punto para la captura para que veas que sólo el tiempo es lo que lo cambia :>
+  
+<img width="522" height="495" alt="image" src="https://github.com/user-attachments/assets/8701eedf-00f5-4af3-a60f-8620dd87fede" /><img width="503" height="473" alt="image" src="https://github.com/user-attachments/assets/fb17e0a3-79f7-44e8-b6b6-19d88b09a56a" /><img width="461" height="454" alt="image" src="https://github.com/user-attachments/assets/6df3295d-ccb6-490d-b829-a928925280e8" /><img width="461" height="482" alt="image" src="https://github.com/user-attachments/assets/d0a66dde-7c11-47a4-9669-aba1b1bb443a" />
+
+🌱 ¿Qué otros efectos visuales simples podrías lograr usando el tiempo como uniform? Piensa en la posición, el tamaño o la rotación (aunque no hemos visto rotaciones formalmente, ¡intuitivamente podrías intentarlo!). Anota al menos una idea.
+> Que vaya pulsando también haciéndose más grande o más pequeño, que se vaya moviendo un poquito a la derecha e izquierda con suavizado para que se sienta como que está colgando del mouse, que vaya a la posición contraria del mouse (o sea, si el mouse está en x=1, el triángulo va a x=-1)...
+
+___
+
+
