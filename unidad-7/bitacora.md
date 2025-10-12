@@ -292,7 +292,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// 2) Crear ventana
-	GLFWwindow* mainWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Triangulo con Color Ciclico", nullptr, nullptr);
+	GLFWwindow* mainWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Triangulo pero más slay", nullptr, nullptr);
 	if (!mainWindow) {
 		std::cerr << "Error creando ventana1\n";
 		glfwTerminate();
@@ -394,11 +394,10 @@ int main()
 🌻**Incluye una captura de pantalla o UN ENLACE a un video mostrando el resultado del triángulo con color cambiante.**  
  > lo hice en base al de la actividad 5, entonces igual sigue el mouse... pero lo voy a dejar en un solo punto para la captura para que veas que sólo el tiempo es lo que lo cambia :>
   
-<img width="522" height="495" alt="image" src="https://github.com/user-attachments/assets/8701eedf-00f5-4af3-a60f-8620dd87fede" /><img width="503" height="473" alt="image" src="https://github.com/user-attachments/assets/fb17e0a3-79f7-44e8-b6b6-19d88b09a56a" /><img width="461" height="454" alt="image" src="https://github.com/user-attachments/assets/6df3295d-ccb6-490d-b829-a928925280e8" /><img width="461" height="482" alt="image" src="https://github.com/user-attachments/assets/d0a66dde-7c11-47a4-9669-aba1b1bb443a" />
+<img width="420" height="444" alt="image" src="https://github.com/user-attachments/assets/6ec6522c-99c6-47c0-89c7-28a7ddbb5147" /> <img width="410" height="441" alt="image" src="https://github.com/user-attachments/assets/6a47ab32-72bc-4233-a0be-fb08b342db4b" /><img width="422" height="421" alt="image" src="https://github.com/user-attachments/assets/6eaf5c36-3bba-47d5-8a76-abcca3ae8041" /><img width="405" height="440" alt="image" src="https://github.com/user-attachments/assets/0f2b722f-fb05-4e78-be0f-85097e6c7b55" />
 
 🌱 ¿Qué otros efectos visuales simples podrías lograr usando el tiempo como uniform? Piensa en la posición, el tamaño o la rotación (aunque no hemos visto rotaciones formalmente, ¡intuitivamente podrías intentarlo!). Anota al menos una idea.
 > Que vaya pulsando también haciéndose más grande o más pequeño, que se vaya moviendo un poquito a la derecha e izquierda con suavizado para que se sienta como que está colgando del mouse, que vaya a la posición contraria del mouse (o sea, si el mouse está en x=1, el triángulo va a x=-1)...
-
 
 ___
 
