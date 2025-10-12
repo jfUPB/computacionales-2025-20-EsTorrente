@@ -320,17 +320,17 @@ int main()
 	// 7) Compila y linkea shaders
 	shaderProg = buildShaderProgram();
 
-	// agregado uniform de time
-	glUseProgram(shaderProg);
-	int offsetLocation = glGetUniformLocation(shaderProg, "offset");
-	int colorLocation = glGetUniformLocation(shaderProg, "ourColor");
-	int timeLocation = glGetUniformLocation(shaderProg, "time");
-
 	// 8) Genera el contenido a mostrar
 	setupTriangle();
 
 	// 9) Configura el viewport
 	glViewport(0, 0, bufferWidth, bufferHeight);
+
+	// agregado uniform de time
+	glUseProgram(shaderProg);
+	int offsetLocation = glGetUniformLocation(shaderProg, "offset");
+	int colorLocation = glGetUniformLocation(shaderProg, "ourColor");
+	int timeLocation = glGetUniformLocation(shaderProg, "time");
 
 	// 10) Loop principal
 	while (!glfwWindowShouldClose(mainWindow))
