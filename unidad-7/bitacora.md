@@ -143,9 +143,15 @@ ___
 > 1. Escribir código GLSL  
 > 2. Compilar cada shader por separado  
 > 3. Linkearlos en un programa  
-> 4. Usar glUseProgram() para activarlos  
+> 4. Usar glUseProgram() para activarlos
 
+🌱 **Implementa el código anterior en tu máquina y captura pantalla del resultado. Pero antes de hacerlo trata de predecir qué va a pasar.**  
+> **MI PREDICT:** el shader del primer triángulo utiliza normal las coordenadas que le corresponden a la posición, así tal cuál (cuarto atributo = 1), el segundo utiliza las coordenadas del color PERO las multiplica por 0.5, entonces queda más aplastado. El último solamente tenía 2 partes del vector de 4, entonces se le dice que la 3ra parte es 0 (lo mismo que tenían los otros shaders) y que la cuarta parte es 1 (lo mismo que los otros también. Hice un dibujito de más o menos cómo se dibujarían (hice los cálculos) :P  
+> Y en cuanto al color, el fragment shader es el que se encarga de eso... y es el mismo que el código original. Entonces sale como del mismo naranja que el triángulo del programa default.  
+<img width="633" height="603" alt="image" src="https://github.com/user-attachments/assets/39fa58e0-8fbc-4925-9e32-56e37f1f3b6c" />  
 
+**RESULTADO:** lit como lo predije    
+<img width="796" height="620" alt="image" src="https://github.com/user-attachments/assets/8cba2b42-15a8-45c7-80d6-b8e4d911d26e" />  
 ___
 ### 📝 Actividad 05
 <img width="426" height="459" alt="image" src="https://github.com/user-attachments/assets/375a30e5-d273-46ea-b547-b38fc0f26da9" /> <img width="420" height="437" alt="image" src="https://github.com/user-attachments/assets/55fa6ad4-5eb7-40f0-98d9-90de729e26dd" /><img width="399" height="436" alt="image" src="https://github.com/user-attachments/assets/1c806cb5-0d64-4eea-9a96-ffdca6c095eb" /><img width="417" height="441" alt="image" src="https://github.com/user-attachments/assets/5d250132-abe1-43eb-aad3-598d9403d64e" />  
