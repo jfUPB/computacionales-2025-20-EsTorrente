@@ -151,7 +151,8 @@ ___
 <img width="633" height="603" alt="image" src="https://github.com/user-attachments/assets/39fa58e0-8fbc-4925-9e32-56e37f1f3b6c" />  
 
 **RESULTADO:** lit como lo predije    
-<img width="796" height="620" alt="image" src="https://github.com/user-attachments/assets/8cba2b42-15a8-45c7-80d6-b8e4d911d26e" />  
+<img width="800" height="596" alt="image" src="https://github.com/user-attachments/assets/c905c266-c6da-44a5-9a83-c2b8caecfb14" />  
+  
 ___
 ### 📝 Actividad 05
 <img width="426" height="459" alt="image" src="https://github.com/user-attachments/assets/375a30e5-d273-46ea-b547-b38fc0f26da9" /> <img width="420" height="437" alt="image" src="https://github.com/user-attachments/assets/55fa6ad4-5eb7-40f0-98d9-90de729e26dd" /><img width="399" height="436" alt="image" src="https://github.com/user-attachments/assets/1c806cb5-0d64-4eea-9a96-ffdca6c095eb" /><img width="417" height="441" alt="image" src="https://github.com/user-attachments/assets/5d250132-abe1-43eb-aad3-598d9403d64e" />  
