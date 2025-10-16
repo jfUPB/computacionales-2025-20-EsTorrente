@@ -480,7 +480,7 @@ SE VE COMO MI PREDICT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
  - Agregar IDs globales unsigned int shaderA, shaderB, shaderC;   
  - Compilar y linkear cada uno a su shaderprogram (	shaderA = buildShaderProgramA();)  
  - En la parte de limpieza, borrar los 3 (glDeleteProgram(shaderA);)
- - quité lo de `GLuint VAO, VBO` porque cuando lo corrí la primera vez con eso, me di cuenta de que le estaba haciendo ocultamiento a las variables globales D:  
+ - quité lo de `GLuint VAO, VBO` porque cuando fui a cambiar las ids globales para el coso de los shaders, vi que ya había unas de VAO y VBO? entonces asumí que esas variables de GLuint le harían ocultamiento a las variables globales D:  
 
   
 ___
