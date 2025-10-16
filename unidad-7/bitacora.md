@@ -479,7 +479,8 @@ SE VE COMO MI PREDICT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
  - Hacer por separado buildShaderProgramA(), buildShaderProgramB(), buildShaderProgramC() (los 3 usando el mismo fs original)  
  - Agregar IDs globales unsigned int shaderA, shaderB, shaderC;   
  - Compilar y linkear cada uno a su shaderprogram (	shaderA = buildShaderProgramA();)  
- - En la parte de limpieza, borrar los 3 (glDeleteProgram(shaderA);)  
+ - En la parte de limpieza, borrar los 3 (glDeleteProgram(shaderA);)
+ - quité lo de `GLuint VAO, VBO` porque cuando lo corrí la primera vez con eso, me di cuenta de que le estaba haciendo ocultamiento a las variables globales D:  
 
   
 ___
