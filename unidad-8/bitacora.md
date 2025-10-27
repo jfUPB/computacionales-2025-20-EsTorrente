@@ -1,6 +1,6 @@
 # Bitácora de aprendizaje de la unidad 8
 
-## 📝 Actividad 01
+### 📝 Actividad 01
 
 🌱 **Ejecuta el programa y haz clic en la ventana. Observa lo que sucede. ¿Qué es lo que ves? ¿Qué es lo que esperabas ver? ¿Por qué crees que sucede esto?**  
 > Cuando doy clic en la pantalla, el programa se congela como por 4 segundos antes de realizar el cambio de tamaño. Viendo el código, uno esperaría que simplemente se realice el cambio visual de inmediato... pero, según lo que tú nos explicaste en la clase, el cálculo que el programa realiza es TAN pesado que detiene completamente cualquier otro hilo hasta que este se haya terminado (incluyendo la capacidad de cerrar la ventana).  
@@ -15,7 +15,7 @@
   
 ___
 
-## 📝 Actividad 02
+### 📝 Actividad 02
 
 🌻 **Analiza de nuevo el código de la actividad anterior. ¿En qué partes del código se está protegiendo el acceso a la variable circleSize? Según lo que te he venido comentando, los hilos te permiten ejecutar tareas en paralelo; sin embargo, piensa qué ocurre con el paralelismo cuando se sincroniza el acceso a un recurso compartido. ¿Qué ocurre con el rendimiento del programa? ¿Es posible que el rendimiento se vea afectado por el uso de mutex? ¿Por qué?**
 > creo que se está protegiendo aquí:
@@ -41,7 +41,7 @@ AL MISMO TIEMPO:
 
 ___
 
-## 📝 Actividad 03
+### 📝 Actividad 03
 
 🌼 **Ejecuta el código y observa el resultado.**  
 > En ambos se ejecutó con mucha velocidad... pero en la versión secuencial tuve un mini drop de frames de 60 a 55 por un segundo. En el paralelo, se mantuvo en 60 (menos por un milisegundo tan irrelevante que ni alcancé a ver a cuál número droppeó).  
@@ -70,7 +70,7 @@ ___
 
 ___
 
-## 📝 Actividad 04
+### 📝 Actividad 04
 
 🌱 **¿Cuál es la estructura de datos principal que contiene la información de todos los boids y que es accedida por múltiples hilos (el hilo principal para dibujar, el hilo trabajador para actualizar)?**  
 > La estructura principal es std::vector<Boid> boids dentro de la clase Flock, que tiene todos los boidcitos.  
@@ -138,3 +138,5 @@ unlock();
 > que pasen crasheos aleatorios, boids que se teletransportan o tienen como espasmos de dirección, comportamientos raritos en general como si los boids fueran esquizofrénicos D:  
   
 ___
+
+## ⭐ APPLY ⭐
