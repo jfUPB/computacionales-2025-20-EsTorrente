@@ -139,7 +139,7 @@ unlock();
   
 ___
 
-## ⭐ APPLY ⭐
+# ⭐ APPLY ⭐
 
 🌱 **Pega la parte clave de tu función modificada que calcula el píxel para el conjunto de Julia. Recuerda utilizar un bloque cpp.**
 ```cpp
@@ -199,9 +199,9 @@ void ofApp::mouseMoved(int x, int y) {
 
 ___
 
-### ✨ CÓDIGO COMPLETO 
+## ✨ CÓDIGO COMPLETO 
 
-🌱 **ofApp.h**
+### 🌱 **ofApp.h**
 ```cpp
 #pragma once
 
@@ -293,7 +293,7 @@ public:
 };
 ```
 
-🌿 **ofApp.cpp**
+### 🌿 **ofApp.cpp**
 ```cpp
 #include "ofApp.h"
 #include <thread>
@@ -454,3 +454,27 @@ void ofApp::keyPressed(int key) {
     }
 }
 ```
+___
+# ⭐ **MI AUTOEVALUACIÓN:** 5.0
+
+🌱 **Actividad 1:** completada 100%. 
+- Expliqué correctamente los conceptos.  
+- Analicé detalladamente el programa y generé hipótesis sobre su comportamiento.  
+  
+🌱 **Actividad 2:** completada 100%.  
+- Analicé correctamente el código.  
+- lo relacioné con lo aprendido en clase.  
+- realicé hipótesis correctas sobre su comportamiento.
+- expliqué los conceptos de forma clara con mis propias palabras.  
+
+🌱 **Actividad 3:** completada 100%.  
+- comprendí y expliqué el código correctamente.
+- formulé, ejecuté y comprobé pruebas e hipótesis que me permitieron profundizar sobre el tema y comprender distintos escenarios.  
+
+🌱 **Actividad 4:** completada 100%.  
+- respondí y argumenté todas las preguntas, demostrando comprensión sobre el tema visto.
+- comprendí y expliqué el funcionamiento del programa, los diferentes casos donde podrían darse errores, y por qué suceden estos.
+
+🌱 **Apply:** completada 100%, explicada para demostrar dominio del tema y totalmente funcional.  
+
+gracias por todo juanferfranco.github.io, tkm!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
