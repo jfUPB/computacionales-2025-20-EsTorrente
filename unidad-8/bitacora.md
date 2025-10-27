@@ -140,3 +140,317 @@ unlock();
 ___
 
 ## ⭐ APPLY ⭐
+
+🌱 **Pega la parte clave de tu función modificada que calcula el píxel para el conjunto de Julia. Recuerda utilizar un bloque cpp.**
+```cpp
+const glm::vec2& juliaK;  // la constante K :D
+
+int calculateJuliaPixel(int x, int y) {
+
+    float zx = ofMap(x, 0, imgWidth, -1.5, 1.5); //ya no es cx sino zx. Lo moví pq no estaba en el centro y me daba tok
+    float zy = ofMap(y, 0, imgHeight, -1.5, 1.5);
+
+    int iterations = 0;
+
+    // cálculo modificado :P
+    while (zx * zx + zy * zy < 4.0 && iterations < maxIterations) {
+        float tempX = zx * zx - zy * zy + juliaK.x;  
+        zy = 2.0 * zx * zy + juliaK.y;              
+        zx = tempX;
+        iterations++;
+    }
+    return iterations;
+}
+```
+> y en el ofApp del .h:
+```cpp
+glm::vec2 juliaK;  // la k
+```
+
+🌿 **Muestra cómo mapeaste la posición del mouse a la constante k.**
+> en el ofApp del .h:
+```cpp
+    void mouseMoved(int x, int y);  //cosito del mouse
+```
+> y en el cpp:
+```cpp
+void ofApp::mouseMoved(int x, int y) {
+    // mapeo como mostraste :P
+    juliaK.x = ofMap(x, 0, ofGetWidth(), -1.5f, 1.5f);
+    juliaK.y = ofMap(y, 0, ofGetHeight(), -1.5f, 1.5f);
+
+    // banderita
+    needsRecalculation = true;
+}
+```
+
+🌼 **Describe brevemente cómo reutilizaste la estructura de hilos de la versión Mandelbrot. ¿Tuviste que cambiar mucho esa parte?** 
+> Noo, lit sólo agregué la variable `const glm::vec2& juliaKRef`:`juliaK(juliaKRef)` en el constructor y cambié el nombre de la función de los pixeles a `calculateJuliaPixel(x, y);`. La estructura como tal sigue siendo la misma!!! En la parte de private cambié las variables de cx y cy a zx y zy... y yap. Nada más.   
+
+🌻 **¿Cómo te aseguraste de que la imagen se recalculara cuando el mouse se movía?** 
+> usando la banderita!! cada vez que se llamaba el método de mouse moved, ponía la banderita de necesita recalcular como true, y eso permitía que en el update se ejecutara otra vez el StartCalculation. Cuando se terminaba el método, volvía a settear la banderita a false :P  
+
+🌱 **Incluye al menos dos capturas de pantalla que muestren diferentes fractales de Julia generados al mover el mouse en tu aplicación.**
+<img width="1017" height="776" alt="image" src="https://github.com/user-attachments/assets/cc9bb372-060c-4d47-a535-58e0548f5517" /> <img width="1017" height="768" alt="image" src="https://github.com/user-attachments/assets/42ebd16b-3132-4b7b-94f8-abddd01cdc81" /> <img width="1022" height="768" alt="image" src="https://github.com/user-attachments/assets/e77aa6eb-5b19-4fe2-8ce9-664ddc351b59" /> <img width="1017" height="762" alt="image" src="https://github.com/user-attachments/assets/cab88310-0090-48b4-847c-722ff208559f" />
+
+🌿 **¿Encontraste algún desafío particular al implementar la interacción o modificar el cálculo?**
+> Nop... estuvo fácil :P
+> Todo fue muy directo, y los cambios eran chiquitos.  
+
+___
+
+### ✨ CÓDIGO COMPLETO 
+
+🌱 **ofApp.h**
+```cpp
+#pragma once
+
+#include "ofMain.h"
+#include "ofThread.h"
+
+class JuliaSetThread : public ofThread {
+public:
+    JuliaSetThread(int startY, int endY, int width, int height, int maxIter,
+        ofPixels& pixelsRef, const glm::vec2& juliaKRef)
+        : startRow(startY), endRow(endY), imgWidth(width), imgHeight(height),
+        maxIterations(maxIter), pixels(pixelsRef), juliaK(juliaKRef) {
+    }
+
+    void threadedFunction() override {
+        for (int y = startRow; y < endRow && isThreadRunning(); ++y) {
+            for (int x = 0; x < imgWidth; ++x) {
+                int iterations = calculateJuliaPixel(x, y);
+                pixels.setColor(x, y, mapIterationsToColor(iterations));
+            }
+        }
+        ofLogVerbose("JuliaSetThread") << "Hilo para filas " << startRow << "-" << endRow << " terminado.";
+    }
+
+private:
+    int startRow, endRow;
+    int imgWidth, imgHeight;
+    int maxIterations;
+    ofPixels& pixels;
+    const glm::vec2& juliaK;  // la constante K :D
+
+    int calculateJuliaPixel(int x, int y) {
+
+        float zx = ofMap(x, 0, imgWidth, -1.5, 1.5); //ya no es cx sino zx. Lo moví pq no estaba en el centro y me daba tok
+        float zy = ofMap(y, 0, imgHeight, -1.5, 1.5);
+
+        int iterations = 0;
+
+        // cálculo modificado :P
+        while (zx * zx + zy * zy < 4.0 && iterations < maxIterations) {
+            float tempX = zx * zx - zy * zy + juliaK.x;  
+            zy = 2.0 * zx * zy + juliaK.y;              
+            zx = tempX;
+            iterations++;
+        }
+        return iterations;
+    }
+
+    ofColor mapIterationsToColor(int iterations) {
+        if (iterations == maxIterations) return ofColor::black;
+        else {
+            float hue = ofMap(iterations, 0, maxIterations, 0, 255);
+            float brightness = ofMap(iterations, 0, maxIterations, 100, 255);
+            float saturation = 200;
+            return ofColor::fromHsb(hue, saturation, brightness);
+        }
+    }
+};
+
+class ofApp : public ofBaseApp {
+public:
+    void setup();
+    void update();
+    void draw();
+    void exit();
+    void keyPressed(int key);
+    void mouseMoved(int x, int y);  //cosito del mouse
+
+    void startCalculation();
+
+    ofPixels pixels;
+    ofTexture texture;
+
+    int imgWidth;
+    int imgHeight;
+    int maxIterations;
+    int numThreads;
+
+    vector<JuliaSetThread*> threads;  // cambio de nombre
+
+    float startTime;
+    float calculationTime;
+    bool calculating;
+    string statusMessage;
+    int runningThreads;
+
+    glm::vec2 juliaK;  // la k
+    bool needsRecalculation;  // banderita para recalcular
+};
+```
+
+🌿 **ofApp.cpp**
+```cpp
+#include "ofApp.h"
+#include <thread>
+
+//--------------------------------------------------------------
+void ofApp::setup() {
+    ofSetWindowTitle("Julia Set slay");
+    ofSetFrameRate(60);
+    ofBackground(30);
+
+    imgWidth = ofGetWidth();
+    imgHeight = ofGetHeight();
+    maxIterations = 100;
+
+    numThreads = std::thread::hardware_concurrency();
+    if (numThreads == 0) numThreads = 4;
+    ofLogNotice() << "Usando " << numThreads << " hilos.";
+
+    pixels.allocate(imgWidth, imgHeight, OF_PIXELS_RGB);
+    texture.allocate(pixels);
+
+    calculating = false;
+    calculationTime = 0.0f;
+    runningThreads = 0;
+    statusMessage = "Mueve el mouse :D";
+}
+
+//--------------------------------------------------------------
+
+void ofApp::startCalculation() {
+    if (calculating) {
+        ofLogWarning() << "Ya se está calculando, espera a que termine.";
+        return;
+    }
+
+    calculating = true;
+    runningThreads = 0; // Reseteamos contador antes de lanzar nuevos
+    statusMessage = "Calculando con " + ofToString(numThreads) + " hilos...";
+
+    ofLogNotice() << statusMessage;
+    startTime = ofGetElapsedTimef();
+
+    if (!threads.empty()) {
+        ofLogVerbose() << "Limpiando hilos anteriores...";
+        for (auto& thread : threads) {
+            thread->waitForThread(true);
+            delete thread;
+        }
+        threads.clear();
+        ofLogVerbose() << "Hilos anteriores limpiados.";
+    }
+
+    int rowsPerThread = imgHeight / numThreads;
+    for (int i = 0; i < numThreads; ++i) {
+        int startY = i * rowsPerThread;
+        int endY = (i == numThreads - 1) ? imgHeight : (i + 1) * rowsPerThread; // Asegura que el último hilo llegue hasta el final
+
+        // JuliaSetThread en vez de MandelbrotThread, pasa juliaK :P
+        JuliaSetThread* newThread = new JuliaSetThread(startY, endY, imgWidth, imgHeight, maxIterations, pixels, juliaK);
+        threads.push_back(newThread);
+        runningThreads++;
+        threads.back()->startThread(); // Inicia la ejecución de threadedFunction
+        ofLogVerbose() << "Lanzado hilo " << i << " para filas " << startY << "-" << endY;
+    }
+    ofLogNotice() << runningThreads << " hilos lanzados :D";
+}
+
+//--------------------------------------------------------------
+
+void ofApp::update() {
+    // si necesito recalcular y no estoy calculando, recalcular :D
+    if (needsRecalculation && !calculating) {
+        startCalculation();
+        needsRecalculation = false;
+    }
+
+    bool allThreadsFinished = true;
+    if (!threads.empty()) { // Solo comprobar si hay hilos
+        for (const auto& thread : threads) {
+            if (thread->isThreadRunning()) {
+                allThreadsFinished = false;
+                break; // Si uno sigue corriendo, no necesitamos comprobar los demás
+            }
+        }
+    }
+    else {
+        // Si no hay hilos en el vector, definitivamente no están corriendo
+        allThreadsFinished = true;
+    }
+
+    if (allThreadsFinished && calculating) {
+        calculationTime = ofGetElapsedTimef() - startTime;
+        calculating = false;
+        runningThreads = 0;
+        statusMessage = "Cálculo completado. \nPresiona ESPACIO para recalcular.";
+        ofLogNotice() << statusMessage << " Tiempo: " << calculationTime << " s";
+        texture.loadData(pixels);
+    }
+}
+
+//--------------------------------------------------------------
+
+void ofApp::mouseMoved(int x, int y) {
+    // mapeo como mostraste :P
+    juliaK.x = ofMap(x, 0, ofGetWidth(), -1.5f, 1.5f);
+    juliaK.y = ofMap(y, 0, ofGetHeight(), -1.5f, 1.5f);
+
+    // banderita
+    needsRecalculation = true;
+}
+
+
+//--------------------------------------------------------------
+void ofApp::draw() {
+    ofSetColor(255);
+    texture.draw(0, 0, ofGetWidth(), ofGetHeight());
+
+    stringstream ss;
+    ss << "Version: la + genial" << endl;
+
+    ss << "Status: " << statusMessage << endl;
+    if (!calculating && calculationTime > 0.0f) {
+        ss << "Ultimo Tiempo: " << ofToString(calculationTime, 3) << " s" << endl;
+    }
+    ss << "Hilos Usados: " << numThreads << endl;
+    // ss << "Hilos Corriendo: " << runningThreads << endl; // Podría fluctuar rápido
+
+    ss << "Max Iteraciones: " << maxIterations << endl;
+    ss << "Resolucion: " << imgWidth << "x" << imgHeight << endl;
+    ss << "FPS: " << ofToString(ofGetFrameRate(), 0);
+
+    ofSetColor(0, 180);
+    ofDrawRectangle(10, 10, 350, 120); // Un poco más grande
+    ofSetColor(255);
+    ofDrawBitmapString(ss.str(), 20, 30);
+}
+
+//--------------------------------------------------------------
+void ofApp::exit() {
+    ofLogNotice() << "Saliendo, esperando a los hilos...";
+    for (auto& thread : threads) {
+        thread->waitForThread(true); // Espera bloqueante hasta que el hilo termine
+        delete thread; // Liberar memoria
+    }
+    threads.clear();
+    ofLogNotice() << "Hilos detenidos y limpiados. Adiós.";
+}
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key) {
+    if (key == ' ') {
+        maxIterations += 1;
+        startCalculation();
+    }
+    if (key == 'n') {
+        maxIterations = 0;
+        startCalculation();
+    }
+}
+```
